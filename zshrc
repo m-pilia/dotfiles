@@ -45,6 +45,9 @@ bindkey '^ ' autosuggest-accept
 # zsh-syntax-highlighting
 . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Alias tips
+. /usr/share/zsh/plugins/alias-tips/alias-tips.plugin.zsh
+
 # Use vim cli mode
 bindkey '^P' up-history
 bindkey '^N' down-history
