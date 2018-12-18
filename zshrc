@@ -48,6 +48,9 @@ bindkey '^ ' autosuggest-accept
 # Alias tips
 . /usr/share/zsh/plugins/alias-tips/alias-tips.plugin.zsh
 
+# Autojump
+. /etc/profile.d/autojump.zsh
+
 # Use vim cli mode
 bindkey '^P' up-history
 bindkey '^N' down-history
