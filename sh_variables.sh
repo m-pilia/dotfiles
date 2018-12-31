@@ -63,3 +63,6 @@ fi
 # matlab
 export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
 
+# ruby
+export PATH=$PATH:~/.gem/ruby/2.5.0/bin
+export GEM_HOME=~/.gem
