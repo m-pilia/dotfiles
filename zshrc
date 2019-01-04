@@ -51,6 +51,9 @@ bindkey '^ ' autosuggest-accept
 # Autojump
 . /etc/profile.d/autojump.zsh
 
+# Thefuck
+eval "$(thefuck --alias)"
+
 # Use vim cli mode
 bindkey '^P' up-history
 bindkey '^N' down-history
