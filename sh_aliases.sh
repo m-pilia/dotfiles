@@ -20,3 +20,5 @@ alias wmsystemtray='wmsystemtray --non-wmaker --bgcolor white'
 alias pypi2pkgbuild='PKGEXT=.pkg.tar pypi2pkgbuild.py -g cython -b /tmp/pypi2pkgbuild/ -f'
 
 alias rgfzf='rg --no-line-number --no-heading . | fzf --delimiter=: --nth=2..'
+
+alias new_venv='python -m venv .venv && source .venv/bin/activate && pip install -r'
