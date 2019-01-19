@@ -1,3 +1,5 @@
+# shellcheck disable=2155,2006
+
 # local binaries
 export PATH=~/.local/bin:$PATH
 
@@ -64,5 +66,5 @@ fi
 export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
 
 # ruby
-export PATH=$PATH:~/.gem/ruby/2.5.0/bin
+export PATH=$PATH:"$(find ~/.gem/ruby -maxdepth 1 -type d | sort | tail -1)/bin"
 export GEM_HOME=~/.gem
