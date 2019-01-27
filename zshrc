@@ -1,8 +1,15 @@
-PROMPT="[%n@%M %~] %% "
+export PROMPT="[%n@%M %~] %% "
 
-HISTFILE=~/.zsh_history
-SAVEHIST=10000
-HISTSIZE=10000
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=${HISTSIZE}
+setopt extended_history
+setopt inc_append_history
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
 
 # compsys initialization
 autoload -U +X compinit && compinit
@@ -22,8 +29,8 @@ bindkey '^[[1;5D' emacs-backward-word
 . ~/.shell_config/sh_variables.sh
 . ~/.shell_config/sh_aliases.sh
 
-# enable command autocorrection
-setopt correct
+setopt correct    # Enable command autocorrection
+setopt correctall # Enable argument autocorrection
 
 # vi mode command line editing
 #bindkey -v
