@@ -37,20 +37,17 @@ setopt correctall # Enable argument autocorrection
 
 # spaceship-prompt
 . /usr/lib/spaceship-prompt/spaceship.zsh
-SPACESHIP_CHAR_SYMBOL='%% '
+SPACESHIP_CHAR_SYMBOL='➜ '
 SPACESHIP_CHAR_SYMBOL_ROOT='# '
-SPACESHIP_USER_SHOW=always
-SPACESHIP_HOST_SHOW=always
-SPACESHIP_DIR_TRUNC_REPO=false
+SPACESHIP_USER_SHOW=needed
+SPACESHIP_HOST_SHOW=needed
+SPACESHIP_DIR_TRUNC_REPO=true
 SPACESHIP_PROMPT_ORDER[3]=host
 SPACESHIP_PROMPT_ORDER[4]=dir
 
 # zsh-autosuggestions
 . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
-
-# zsh-syntax-highlighting
-. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Alias tips
 . /usr/share/zsh/plugins/alias-tips/alias-tips.plugin.zsh
@@ -83,3 +80,6 @@ zstyle ':completion:*' menu select=2
 export FZF_DEFAULT_COMMAND='fd --type f'
 . /usr/share/fzf/key-bindings.zsh
 . /usr/share/fzf/completion.zsh
+
+# zsh-syntax-highlighting (must be the last plugin sourced)
+. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
