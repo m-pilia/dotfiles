@@ -56,7 +56,7 @@ export PATH=~/.npm-global/bin:$PATH
 if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
     ssh-agent > ~/.ssh-agent-thing
     eval "$(<~/.ssh-agent-thing)" &> /dev/null
-	ssh-add ~/.ssh/github < /dev/null &> /dev/null
+    ssh-add ~/.ssh/github < /dev/null &> /dev/null
 fi
 if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-thing)" &> /dev/null
