@@ -27,3 +27,5 @@ function find_symbol() {
 	if [ "$#" -ne 1 ]; then echo "Usage: find_symbol <symbol>"; exit 1; fi
 	scanelf -l -s "$1" | grep "$1"
 }
+
+alias gitroot='cd "$(git rev-parse --show-toplevel)"'
