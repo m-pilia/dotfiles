@@ -29,8 +29,8 @@ bindkey '^[[1;5D' emacs-backward-word
 . ~/.shell_config/sh_variables.sh
 . ~/.shell_config/sh_aliases.sh
 
-setopt correct    # Enable command autocorrection
-setopt correctall # Enable argument autocorrection
+# Enable command autocorrection
+setopt correct
 
 # vi mode command line editing
 #bindkey -v
