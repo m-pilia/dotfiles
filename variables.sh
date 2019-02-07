@@ -55,11 +55,13 @@ export SITK_SHOW_COMMAND="Display %f"
 # npm global packages path
 export PATH=~/.npm-global/bin:$PATH
 
+export SSH_KEYS_TO_ADD="${SSH_KEYS_TO_ADD} ${HOME}/.ssh/github"
+
 # start ssh-agent
 if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
     ssh-agent > ~/.ssh-agent-thing
     eval "$(<~/.ssh-agent-thing)" &> /dev/null
-    ssh-add ~/.ssh/github < /dev/null &> /dev/null
+    ssh-add "${SSH_KEYS_TO_ADD}" < /dev/null &> /dev/null
 fi
 if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-thing)" &> /dev/null
