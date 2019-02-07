@@ -1,5 +1,8 @@
 # shellcheck disable=2155,2006
 
+# custom scripts
+export PATH=~/.shell_config/bin:$PATH
+
 # local binaries
 export PATH=~/.local/bin:$PATH
 

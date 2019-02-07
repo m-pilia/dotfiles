@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 1 ]; then
+	echo "Usage: find_symbol <symbol>"
+	exit 1
+fi
+
+scanelf -l -s "$1" | grep "$1"

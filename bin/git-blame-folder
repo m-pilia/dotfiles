@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Given a folder in a git tree, show information about the last commit for each
+# file contained in it. Gather the content of each field with `git log`, running
+# it once for each file. Precompute the length of the filename for
+# pretty-printing purpose.
+
+set -euo pipefail
+
+# Cd into the directory, to avoid differences betweeh "dir" and "dir/"
+cd "${1-.}"
+file_list="$(git ls-tree --name-only HEAD -- .)"
+
+# Pre-compute maximum filename length
+filename_len=0
+IFS="$(printf "\n\b")"
+for f in ${file_list}; do
+    if [ ${#f} -gt ${filename_len} ]; then
+        filename_len=${#f}
+    fi
+done
+
+# Iterate over files
+for f in ${file_list}; do
+
+    # Highlight directories
+    file_name=${f}
+    if [ -d "${f}" ]; then
+        fmt='bold'
+        file_name=${file_name}/
+    else
+        fmt='dim'
+    fi
+
+    # Array of git log placeholders
+    placeholders=(
+        "%C(cyan)%h%Creset"
+        "%C(${fmt})%%-${filename_len}s%Creset"
+        "%C(green)%cd%Creset"
+        "%s"
+        "%C(yellow)(%cn)%Creset"
+    )
+
+    # Query the git log
+    # shellcheck disable=SC2116
+    fmt=$(echo "${placeholders[@]}")
+    out=$(git log -1 \
+                  --color \
+                  --date=format:'%Y-%m-%d %H:%M' \
+                  --pretty=format:"${fmt}" \
+                  -- \
+                  "$f" \
+                  )
+
+    # Print output line for current file
+    # shellcheck disable=SC2059
+    printf "${out}\n" "${file_name}"
+done

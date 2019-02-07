@@ -1,0 +1,5 @@
+#compdef git-blame-folder
+#description show last commit info for each file in the folder
+
+_arguments \
+   '1:folder:_path_files -/'

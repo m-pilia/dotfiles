@@ -11,6 +11,9 @@ setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
+# Custom completions
+fpath=(~/.shell_config/completions $fpath)
+
 # compsys initialization
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
@@ -26,8 +29,8 @@ bindkey '^[[1;5D' emacs-backward-word
 
 # shared config among different machines
 
-. ~/.shell_config/sh_variables.sh
-. ~/.shell_config/sh_aliases.sh
+. ~/.shell_config/variables.sh
+. ~/.shell_config/aliases.sh
 
 # Enable command autocorrection
 setopt correct
@@ -37,11 +40,6 @@ setopt correct
 
 # spaceship-prompt
 . /usr/lib/spaceship-prompt/spaceship.zsh
-SPACESHIP_CHAR_SYMBOL='➜ '
-SPACESHIP_CHAR_SYMBOL_ROOT='# '
-SPACESHIP_USER_SHOW=needed
-SPACESHIP_HOST_SHOW=needed
-SPACESHIP_DIR_TRUNC_REPO=true
 SPACESHIP_PROMPT_ORDER[3]=host
 SPACESHIP_PROMPT_ORDER[4]=dir
 
@@ -67,7 +65,7 @@ bindkey '^N' down-history
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 
-# ctrl-w removed word backwards
+# ctrl-w removes a word backwards
 bindkey '^w' backward-kill-word
 
 # ctrl-r starts searching history backward

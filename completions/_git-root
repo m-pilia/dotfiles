@@ -1,0 +1,2 @@
+#compdef git-root
+#description print the git toplevel

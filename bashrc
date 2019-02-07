@@ -9,8 +9,8 @@ alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
 # shared config among different machines
-. ~/.shell_config/sh_variables.sh
-. ~/.shell_config/sh_aliases.sh
+. ~/.shell_config/variables.sh
+. ~/.shell_config/aliases.sh
 
 PS1='[\u@\h \W]\$ '
 

@@ -1,13 +1,9 @@
-# alias per cd con ls automatico
-cdalias () {
-	cd $* && ls --color=auto
-}
+# shellcheck disable=2164
 
 alias ls='ls --color=auto'
 alias ll='ls -l'
-#alias cd='cdalias' # è definita qui sopra
 
-# exec emacs in a 256 color termina
+# exec emacs in a 256 color terminal
 alias emacs='env TERM=xterm-256color emacs -nw'
 
 # readline support
@@ -23,9 +19,9 @@ alias rgfzf='rg --no-line-number --no-heading . | fzf --delimiter=: --nth=2..'
 
 alias new_venv='python -m venv .venv && source .venv/bin/activate && pip install -r'
 
-function find_symbol() {
-	if [ "$#" -ne 1 ]; then echo "Usage: find_symbol <symbol>"; exit 1; fi
-	scanelf -l -s "$1" | grep "$1"
+function gitcd() {
+	if [ "$#" -eq 0 ]; then
+		cd "$(git root)"
+	fi
+	cd "$(git root)"/"$1"
 }
-
-alias gitroot='cd "$(git rev-parse --show-toplevel)"'
