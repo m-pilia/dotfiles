@@ -18,10 +18,3 @@ alias pypi2pkgbuild='PKGEXT=.pkg.tar pypi2pkgbuild.py -g cython -b /tmp/pypi2pkg
 alias rgfzf='rg --no-line-number --no-heading . | fzf --delimiter=: --nth=2..'
 
 alias new_venv='python -m venv .venv && source .venv/bin/activate && pip install -r'
-
-function gitcd() {
-	if [ "$#" -eq 0 ]; then
-		cd "$(git root)"
-	fi
-	cd "$(git root)"/"$1"
-}

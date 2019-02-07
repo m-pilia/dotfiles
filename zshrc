@@ -1,5 +1,7 @@
+# Prompt format (fallback)
 export PROMPT="[%n@%M %~] %% "
 
+# History settings
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=${HISTSIZE}
@@ -14,11 +16,17 @@ setopt hist_ignore_space
 # Custom completions
 fpath=(~/.shell_config/completions $fpath)
 
-# compsys initialization
+# Completion system initialization
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 
-# key bindings
+# Show completion menu when number of options is at least 2
+zstyle ':completion:*' menu select=2
+
+# Enable command autocorrection
+setopt correct
+
+# Key bindings
 bindkey "^[[3~" delete-char
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
@@ -26,17 +34,17 @@ bindkey "^[[A" up-line-or-history
 bindkey "^[[B" down-line-or-history
 bindkey '^[[1;5C' emacs-forward-word
 bindkey '^[[1;5D' emacs-backward-word
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
 
-# shared config among different machines
+# Shared config among different machines
 
 . ~/.shell_config/variables.sh
 . ~/.shell_config/aliases.sh
-
-# Enable command autocorrection
-setopt correct
-
-# vi mode command line editing
-#bindkey -v
 
 # spaceship-prompt
 . /usr/lib/spaceship-prompt/spaceship.zsh
@@ -55,24 +63,6 @@ bindkey '^ ' autosuggest-accept
 
 # Thefuck
 eval "$(thefuck --alias)"
-
-# Use vim cli mode
-bindkey '^P' up-history
-bindkey '^N' down-history
-
-# backspace and ^h working even after
-# returning from command mode
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-
-# ctrl-w removes a word backwards
-bindkey '^w' backward-kill-word
-
-# ctrl-r starts searching history backward
-bindkey '^r' history-incremental-search-backward
-
-# show completion menu when number of options is at least 2
-zstyle ':completion:*' menu select=2
 
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
