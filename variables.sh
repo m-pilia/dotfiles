@@ -55,16 +55,20 @@ export SITK_SHOW_COMMAND="Display %f"
 # npm global packages path
 export PATH=~/.npm-global/bin:$PATH
 
-export SSH_KEYS_TO_ADD="${SSH_KEYS_TO_ADD} ${HOME}/.ssh/github"
+# ssh keys to be added to agent
+SSH_KEYS_TO_ADD+=(~/.ssh/github)
+export SSH_KEYS_TO_ADD
 
 # start ssh-agent
 if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
-    ssh-agent > ~/.ssh-agent-thing
-    eval "$(<~/.ssh-agent-thing)" &> /dev/null
-    ssh-add "${SSH_KEYS_TO_ADD}" < /dev/null &> /dev/null
+	ssh-agent > ~/.ssh-agent-thing
+	eval "$(<~/.ssh-agent-thing)" &> /dev/null
+	for key in $SSH_KEYS_TO_ADD; do
+		ssh-add "${key}" < /dev/null &> /dev/null
+	done
 fi
 if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval "$(<~/.ssh-agent-thing)" &> /dev/null
+	eval "$(<~/.ssh-agent-thing)" &> /dev/null
 fi
 
 # matlab
