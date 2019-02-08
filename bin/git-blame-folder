@@ -20,16 +20,19 @@ for f in ${file_list}; do
     fi
 done
 
+# One char to add slash after directory names
+filename_len=$((filename_len + 1))
+
 # Iterate over files
 for f in ${file_list}; do
 
     # Highlight directories
     file_name=${f}
     if [ -d "${f}" ]; then
-        fmt='bold'
+        fmt='blue'
         file_name=${file_name}/
     else
-        fmt='dim'
+        fmt='white'
     fi
 
     # Array of git log placeholders
