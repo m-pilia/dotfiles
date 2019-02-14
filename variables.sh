@@ -25,7 +25,14 @@ export ERL_LIBS=/opt/proper/
 export PATH=$PATH:~/.cabal/bin
 
 # stack auto-completion
-eval "$(stack --bash-completion-script stack)"
+if command -v stack > /dev/null; then
+	eval "$(stack --bash-completion-script stack)"
+fi
+
+# pipenv auto-completion
+if command -v pipenv > /dev/null; then
+	eval "$(pipenv --completion)"
+fi
 
 # visual editor
 export VISUAL="vim"
