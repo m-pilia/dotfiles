@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+read -p "Better you have a backup. Are you sure you want to continue? [yn] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	cd "$(git rev-parse --show-toplevel)"
+	find .git/objects/ -size 0 -exec rm -f {} \;
+	git fetch origin
+fi
+
