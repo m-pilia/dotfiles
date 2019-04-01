@@ -1,0 +1,6 @@
+#compdef git-replace-email
+#description replace a given e-mail with a different one in all commits
+
+_arguments \
+   '1:old-email' \
+   '2:new-email'

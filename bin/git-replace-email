@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Replace a given e-mail address with a different one in all commits.
+
+set -euo pipefail
+
+if [ $# -ne 2 ]; then
+	echo "Usage: git replace-email <old@email.com> <new@email.com>"
+	exit 1
+fi
+
+read -p "Better you have a backup. Are you sure you want to continue? [yn] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	old_email=$1
+	new_email=$2
+
+	git filter-branch --force --env-filter "
+		if test \"\$GIT_AUTHOR_EMAIL\" = \"${old_email}\"
+		then
+			GIT_AUTHOR_EMAIL=${new_email}
+		fi
+		if test \"\$GIT_COMMITTER_EMAIL\" = \"${old_email}\"
+		then
+			GIT_COMMITTER_EMAIL=${new_email}
+		fi
+	" -- --all
+fi
