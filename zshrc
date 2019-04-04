@@ -68,6 +68,9 @@ eval "$(thefuck --alias)"
 export FZF_DEFAULT_COMMAND='fd --type f'
 . /usr/share/fzf/key-bindings.zsh
 . /usr/share/fzf/completion.zsh
+. ~/.shell_config/fzf_widgets.zsh
+
+bindkey '^Y' fzf-command-widget
 
 # zsh-syntax-highlighting (must be the last plugin sourced)
 . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
