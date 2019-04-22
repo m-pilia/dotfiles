@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+julia --startup-file=no --history-file=no -e '
+	using Pkg;
+	try
+		using LanguageServer;
+		import StaticLint;
+		import SymbolServer;
+	catch
+		Pkg.add("LanguageServer")
+		Pkg.add("SymbolServer")
+		Pkg.add("StaticLint")
+
+		using LanguageServer;
+		import StaticLint;
+		import SymbolServer;
+	end
+
+    env_path = dirname(Pkg.Types.Context().env.project_file);
+    debug = false;
+
+    server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
+    server.runlinter = true;
+    run(server);
+'
