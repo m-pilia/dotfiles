@@ -1,5 +1,8 @@
 # shellcheck disable=2155,2006
 
+# editor
+export EDITOR=vim
+
 # custom scripts
 export PATH=~/.shell_config/bin:$PATH
 
