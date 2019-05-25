@@ -41,3 +41,11 @@ function external_monitor_1080p() {
 	xrandr --output eDP-1 --scale "0.9999x0.9999" \
 	       --output DP-1 --auto --scale 2x2 --right-of eDP-1
 }
+
+function find_static_symbol() {
+	fd '.*\.a$' -x bash -c "nm --defined-only {} 2>/dev/null | grep \"$1\" && echo {}"
+}
+
+function find_dynamic_symbol() {
+	scanelf -ls +"$1" | grep "$1"
+}
