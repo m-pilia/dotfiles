@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+Icon=editcopy
+ServiceTypes=KonqPopupMenu/Plugin,inode/directory,inode/directory-locked,inode/directory-hidden
+MimeType=application/octet-stream;inode/directory
+Actions=CopyPath
+X-KDE-Priority=TopLevel
+
+[Desktop Action CopyPath]
+Name=Copy Path
+Icon=klipper
+Exec=echo -n %U | xclip -sel c -f | xclip

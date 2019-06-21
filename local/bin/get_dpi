@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+out=$(xrandr | grep -w connected)
+resolution=$(grep -Eo '[0-9]{4}' <<< "$out" | head -n 1)
+size=$(grep -Eo '[0-9]{3}mm' <<< "$out" | head -n 1 | grep -Eo '[0-9]{3}')
+bc -l <<< "(25.4 * $resolution / $size)"

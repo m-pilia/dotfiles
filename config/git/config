@@ -1,0 +1,25 @@
+[user]
+	name = Martino Pilia
+	email = martino.pilia@gmail.com
+	signingkey = 95565E17
+[core]
+	editor = vim
+	askpass = /usr/bin/ksshaskpass
+	autocrlf = input
+    whitespace = trailing-space,\
+                 -space-before-tab,\
+                 -indent-with-non-tab,\
+                 tab-in-indent,\
+                 cr-at-eol
+[commit]
+	gpgsign = true
+[merge]
+    conflictstyle=diff3
+[color]
+	ui = auto
+[rerere]
+	enabled = true
+[help]
+	autocorrect = 20
+[url "https://github.com/"]
+	insteadOf = git://github.com/
