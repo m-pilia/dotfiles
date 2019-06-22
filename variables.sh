@@ -83,6 +83,3 @@ export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
 # ruby
 export PATH=$PATH:"$(find ~/.gem/ruby -maxdepth 1 -type d | sort | tail -1)/bin"
 export GEM_HOME=~/.gem
-
-# hub
-export GITHUB_TOKEN=$(kwalletcli -f OAuth -e hub)
