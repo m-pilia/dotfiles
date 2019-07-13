@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ $# -ne 1 ]
+then
+	echo "usage: matlab_runner <script_file>"
+	exit
+fi
+
+matlab -nodisplay -nosplash -nodesktop -r "run('$1');exit;"

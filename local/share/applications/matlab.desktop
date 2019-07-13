@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Development;Science
+Exec=konsole -e ~/.local/bin/matlab
+Icon=/usr/local/MATLAB/R2018b/bin/glnxa64/cef_resources/matlab_icon.png
+Name=MATLAB
+StartupNotify=true
+Terminal=false
+Type=Application
+X-KDE-SubstituteUID=false

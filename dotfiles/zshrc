@@ -14,7 +14,7 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
 # Custom completions
-fpath=(~/.shell_config/completions $fpath)
+fpath=(~/.local/share/zsh_functions $fpath)
 
 # Completion system initialization
 autoload -U +X compinit && compinit
@@ -43,8 +43,8 @@ bindkey '^r' history-incremental-search-backward
 
 # Shared config among different machines
 
-. ~/.shell_config/variables.sh
-. ~/.shell_config/aliases.sh
+. ~/.local/share/shell_config/variables.sh
+. ~/.local/share/shell_config/aliases.sh
 
 # spaceship-prompt
 . /usr/lib/spaceship-prompt/spaceship.zsh
@@ -68,7 +68,7 @@ eval "$(thefuck --alias)"
 export FZF_DEFAULT_COMMAND='fd --type f'
 . /usr/share/fzf/key-bindings.zsh
 . /usr/share/fzf/completion.zsh
-. ~/.shell_config/fzf_widgets.zsh
+. ~/.local/share/shell_config/fzf_widgets.zsh
 
 bindkey '^Y' fzf-command-widget
 

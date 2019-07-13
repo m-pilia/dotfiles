@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+debug=
+if [ "${MATLAB_VERBOSE:-0}" -ne 0 ]; then
+	debug=verbose
+fi
+
+matlab_home=$(find /usr/local/MATLAB -mindepth 1 -maxdepth 1 -type d | sort | tail -n 1)
+
+LIBGL_DRI3_DISABLE=1 \
+	LD_PRELOAD=/usr/lib/libstdc++.so.6 \
+	LIBGL_DEBUG="${debug}" \
+	"${matlab_home}/bin/matlab" \
+		-nosoftwareopengl \
+		"$@"
