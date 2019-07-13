@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Replace commit date with author date for all commits in the current branch
+
+set -euo pipefail
+
+read -p "Better you have a backup. Are you sure you want to continue? [yn] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	git filter-branch --env-filter 'GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE; export GIT_COMMITTER_DATE' "$@"
+fi

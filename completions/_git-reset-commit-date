@@ -1,0 +1,2 @@
+#compdef git-reset-commit-date
+#description replace commit date with author date for all commits in the current branch
