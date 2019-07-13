@@ -28,3 +28,5 @@
     autocorrect = 20
 [url "https://github.com/"]
     insteadOf = git://github.com/
+[alias]
+    orphank = !gitk --all --date-order `git reflog | cut -c1-7`&
