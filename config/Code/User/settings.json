@@ -1,0 +1,66 @@
+{
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["leader", "j", "k"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before":["leader", "<CR>"],
+            "commands": [
+                ":nohl",
+            ]
+        },
+        {
+            "before": ["w"],
+            "after": ["leader", "w"]
+        },
+        {
+            "before": ["b"],
+            "after": ["leader", "b"]
+        },
+        {
+            "before": ["e"],
+            "after": ["leader", "e"]
+        },
+        {
+            "before": ["leader", ",", "g", "d"],
+            "commands": ["editor.action.goToDeclaration"]
+        },
+        {
+            "before": ["leader", "w"],
+            "commands": [
+                "workbench.action.files.save",
+            ]
+        }
+    ],
+    "vim.history": 500,
+    "vim.leader": "<Space>",
+    "vim.statusBarColorControl": true,
+    "vim.statusBarColors.normal": "#8ac6f2",
+    "vim.statusBarColors.insert": "#95e454",
+    "vim.statusBarColors.visual": "#f2c68a",
+    "vim.statusBarColors.visualline": "#f2c68a",
+    "vim.statusBarColors.visualblock": "#f2c68a",
+    "vim.statusBarColors.replace": "#e5786d",
+    "vim.whichwrap": "h,l",
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#8ac6f2",
+        "statusBar.noFolderBackground": "#8ac6f2",
+        "statusBar.debuggingBackground": "#8ac6f2"
+    },
+    "vim.hlsearch": true,
+}
