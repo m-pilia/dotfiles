@@ -1,6 +1,11 @@
 # Prompt format (fallback)
 export PROMPT="[%n@%M %~] %% "
 
+# Do not run on login shell
+if [[ -o login ]]; then
+    return
+fi
+
 # History settings
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
