@@ -83,3 +83,8 @@ export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
 # ruby
 export PATH=$PATH:"$(find ~/.gem/ruby -maxdepth 1 -type d | sort | tail -1)/bin"
 export GEM_HOME=~/.gem
+
+# added by travis gem
+if [ -f ~/.travis/travis.sh ]; then
+	source ~/.travis/travis.sh
+fi
