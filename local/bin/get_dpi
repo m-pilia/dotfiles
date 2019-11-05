@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 out=$(xrandr | grep -w connected)
 resolution=$(grep -Eo '[0-9]{4}' <<< "$out" | head -n 1)
-size=$(grep -Eo '[0-9]{3}mm' <<< "$out" | head -n 1 | grep -Eo '[0-9]{3}')
-bc -l <<< "(25.4 * $resolution / $size)"
+size=$(grep -Eo '[0-9]+mm' <<< "$out" | head -n 1 | grep -Eo '[0-9]+')
+
+if [ "$size" -gt 0 ]; then
+	bc -l <<< "(25.4 * $resolution / $size)"
+else
+	echo 92
+fi
