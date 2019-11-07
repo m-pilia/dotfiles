@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=Development;Science
 Exec=konsole -e ~/.local/bin/matlab
-Icon=/usr/local/MATLAB/R2018b/bin/glnxa64/cef_resources/matlab_icon.png
+Icon=/usr/local/MATLAB/R2019b/bin/glnxa64/cef_resources/matlab_icon.png
 Name=MATLAB
 StartupNotify=true
 Terminal=false
