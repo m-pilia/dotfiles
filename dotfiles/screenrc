@@ -1,0 +1,2 @@
+# Allow to scroll with mouse wheel
+termcapinfo xterm* ti@:te@
