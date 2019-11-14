@@ -17,6 +17,8 @@ alias pypi2pkgbuild='PKGEXT=.pkg.tar pypi2pkgbuild.py -g cython -b /tmp/pypi2pkg
 
 alias rgfzf='rg --no-line-number --no-heading . | fzf --delimiter=: --nth=2..'
 
+alias julia='julia -pauto'
+
 # Create a Python virtual environment in a temporary directory
 function tmpvenv() {
 	if [ $# -lt 1 ] || [ ! -f "$1" ]; then
