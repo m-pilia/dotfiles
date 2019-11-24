@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$(git rev-parse --abbrev-ref HEAD)" != 'source' ]; then
+	echo "Not on source branch, aborting"
+	exit 1
+fi
+
+function cleanup {
+	git checkout source
+}
+trap cleanup EXIT
+
+git branch -D master
+git checkout -b master
+git filter-branch --subdirectory-filter _site/ -f
+git push --all --force origin
