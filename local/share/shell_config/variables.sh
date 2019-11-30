@@ -9,7 +9,7 @@ export PATH=~/.local/bin:$PATH
 # personal scripts
 export PATH=$PATH:~/Cryptbox/SW/bin/
 
-if [ "$(bc -l <<< "$(get_dpi) > 200")" -eq 1 ]; then
+if [[ -x "${SSH_SESSION_DETECTED}:-" ]] && [ "$(bc -l <<< "$(get_dpi) > 200")" -eq 1 ]; then
 	# HiDPI support for QT applications (must be an integer)
 	#export QT_DEVICE_PIXEL_RATIO=2
 
@@ -66,25 +66,25 @@ SSH_KEYS_TO_ADD+=(~/.ssh/github)
 export SSH_KEYS_TO_ADD
 
 # start ssh-agent
-if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
-	ssh-agent > ~/.ssh-agent-thing
-	eval "$(<~/.ssh-agent-thing)" &> /dev/null
-	for key in $SSH_KEYS_TO_ADD; do
-		ssh-add "${key}" < /dev/null &> /dev/null
-	done
-fi
-if [[ "$SSH_AGENT_PID" == "" ]]; then
-	eval "$(<~/.ssh-agent-thing)" &> /dev/null
+if [[ ! -o login ]] && [[ -z "${SSH_SESSION_DETECTED:-}" ]] && command -v ssh-agent > /dev/null; then
+	if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
+		ssh-agent > ~/.ssh-agent-thing
+		eval "$(<~/.ssh-agent-thing)" &> /dev/null
+		for key in $SSH_KEYS_TO_ADD; do
+			ssh-add "${key}" < /dev/null &> /dev/null
+		done
+	fi
+	if [[ "$SSH_AGENT_PID" == "" ]]; then
+		eval "$(<~/.ssh-agent-thing)" &> /dev/null
+	fi
 fi
 
 # matlab
 export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
 
 # ruby
-export PATH=$PATH:"$(find ~/.gem/ruby -maxdepth 1 -type d | sort | tail -1)/bin"
-export GEM_HOME=~/.gem
-
-# added by travis gem
-if [ -f ~/.travis/travis.sh ]; then
-	source ~/.travis/travis.sh
+if [[ -d ~/.gem/ruby ]]; then
+	export PATH=$PATH:"$(find ~/.gem/ruby -maxdepth 1 -type d | sort | tail -1)/bin"
+	export GEM_HOME=~/.gem
 fi
+

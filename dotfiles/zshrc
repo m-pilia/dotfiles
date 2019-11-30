@@ -1,10 +1,10 @@
+# Detect SSH session
+if [[ -n "${SSH_CLIENT:-}" ]] || [[ -n "${SSH_TTY:-}" ]]; then
+    export SSH_SESSION_DETECTED=1
+fi
+
 # Prompt format (fallback)
 export PROMPT="[%n@%M %~] %% "
-
-# Do not run on login shell
-if [[ -o login ]]; then
-    return
-fi
 
 # History settings
 export HISTFILE=~/.zsh_history
@@ -51,31 +51,35 @@ bindkey '^r' history-incremental-search-backward
 . ~/.local/share/shell_config/variables.sh
 . ~/.local/share/shell_config/aliases.sh
 
-# spaceship-prompt
-. /usr/lib/spaceship-prompt/spaceship.zsh
-SPACESHIP_PROMPT_ORDER[3]=host
-SPACESHIP_PROMPT_ORDER[4]=dir
-
-# zsh-autosuggestions
-. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^ ' autosuggest-accept
-
-# Alias tips
-. /usr/share/zsh/plugins/alias-tips/alias-tips.plugin.zsh
-
 # Autojump
 . /etc/profile.d/autojump.zsh
 
 # Thefuck
 eval "$(thefuck --alias)"
 
-# fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
-. /usr/share/fzf/key-bindings.zsh
-. /usr/share/fzf/completion.zsh
-. ~/.local/share/shell_config/fzf_widgets.zsh
+# Run fancier stuff only in non-login shells or in ssh shells
+if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]]; then
 
-bindkey '^Y' fzf-command-widget
+    # spaceship-prompt
+    . /usr/lib/spaceship-prompt/spaceship.zsh
+    SPACESHIP_PROMPT_ORDER[3]=host
+    SPACESHIP_PROMPT_ORDER[4]=dir
 
-# zsh-syntax-highlighting (must be the last plugin sourced)
-. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    # zsh-autosuggestions
+    . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    bindkey '^ ' autosuggest-accept
+
+    # Alias tips
+    . /usr/share/zsh/plugins/alias-tips/alias-tips.plugin.zsh
+
+    # fzf
+    export FZF_DEFAULT_COMMAND='fd --type f'
+    . /usr/share/fzf/key-bindings.zsh
+    . /usr/share/fzf/completion.zsh
+    . ~/.local/share/shell_config/fzf_widgets.zsh
+
+    bindkey '^Y' fzf-command-widget
+
+    # zsh-syntax-highlighting (must be the last plugin sourced)
+    . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
