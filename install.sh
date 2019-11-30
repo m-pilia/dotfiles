@@ -8,6 +8,8 @@ if [ "${1:-}" == "--force" ]; then
 	force=f
 fi
 
+cd "$dir"
+
 for file in dotfiles/**; do
 	dotfile=$(basename "$file")
 	echo "symlink ~/.$dotfile"

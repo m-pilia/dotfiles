@@ -9,15 +9,10 @@ alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
 # shared config among different machines
-. ~/.shell_config/variables.sh
-. ~/.shell_config/aliases.sh
-
-PS1='[\u@\h \W]\$ '
-
-# vi mode command line editing
-#set -o vi
+source ~/.local/share/shell_config/variables.sh
+source ~/.local/share/shell_config/aliases.sh
 
 # fzf
-. /usr/share/fzf/key-bindings.bash
-. /usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
 

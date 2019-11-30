@@ -1,0 +1,24 @@
+[submodule "third_party/spaceship-prompt"]
+	path = third_party/spaceship-prompt
+	url = https://github.com/denysdovhan/spaceship-prompt
+	branch = master
+[submodule "third_party/zsh-autosuggestions"]
+	path = third_party/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+	branch = master
+[submodule "third_party/alias-tips"]
+	path = third_party/alias-tips
+	url = https://github.com/djui/alias-tips
+	branch = master
+[submodule "third_party/zsh-syntax-highlighting"]
+	path = third_party/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+	branch = master
+[submodule "third_party/fzf"]
+	path = third_party/fzf
+	url = https://github.com/junegunn/fzf
+	branch = master
+[submodule "third_party/zsh-completions"]
+	path = third_party/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
+	branch = master

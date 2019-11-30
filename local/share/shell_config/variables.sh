@@ -46,7 +46,9 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 export MAKEFLAGS="-j $((`nproc` + 0))"
 
 # ssh helper
-export SSH_ASKPASS=/usr/bin/ksshaskpass
+if command -v ksshaskpass > /dev/null; then
+	export SSH_ASKPASS=/usr/bin/ksshaskpass
+fi
 
 # QQC2 style
 # export QT_QUICK_CONTROLS_STYLE=Desktop
