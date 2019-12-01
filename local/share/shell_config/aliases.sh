@@ -10,14 +10,27 @@ alias emacs='env TERM=xterm-256color emacs -nw'
 alias ocaml='rlwrap ocaml'
 alias poly='rlwrap poly'
 
-# wmsystemtray
-alias wmsystemtray='wmsystemtray --non-wmaker --bgcolor white'
-
 alias pypi2pkgbuild='PKGEXT=.pkg.tar pypi2pkgbuild.py -g cython -b /tmp/pypi2pkgbuild/ -f'
 
 alias rgfzf='rg --no-line-number --no-heading . | fzf --delimiter=: --nth=2..'
 
 alias julia='julia -pauto'
+
+function xdocker() {
+	docker run \
+		-it \
+		--rm \
+		--user "$(id -u)":"$(id -u)" \
+		--userns=host \
+		--net=host \
+		--ipc=host \
+		-e DISPLAY="$DISPLAY" \
+		-v /tmp/.X11-unix/:/tmp/.X11-unix:ro \
+		-v "${HOME}/.Xauthority:/home/$(whoami)/.Xauthority:ro" \
+		-v /etc/passwd:/etc/passwd:ro \
+		-v /etc/group:/etc/group:ro \
+		"$@"
+}
 
 # Create a Python virtual environment in a temporary directory
 function tmpvenv() {
