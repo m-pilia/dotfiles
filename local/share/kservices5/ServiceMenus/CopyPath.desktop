@@ -8,5 +8,6 @@ X-KDE-Priority=TopLevel
 
 [Desktop Action CopyPath]
 Name=Copy Path
+Name[sv]=Kopiera sökväg
 Icon=klipper
 Exec=echo -n %U | xclip -sel c -f | xclip
