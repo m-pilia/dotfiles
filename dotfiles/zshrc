@@ -39,6 +39,9 @@ zstyle ':completion:*' menu select=2
 # Enable command autocorrection
 setopt correct
 
+# vi mode
+bindkey -v
+
 # Key bindings
 bindkey "^[[3~" delete-char
 bindkey "^[[H" beginning-of-line
@@ -53,6 +56,21 @@ bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey '^l' clear-screen
+bindkey '^k' kill-line
+
+# Vim mode key bindings
+bindkey -M viins 'jk' vi-cmd-mode
+bindkey -M vicmd "?" history-incremental-pattern-search-backward
+bindkey -M vicmd "/" history-incremental-pattern-search-forward
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '^r' redo
+bindkey -M vicmd '~' vi-swap-case
+
+# Timeout for multi-character key sequences
+export KEYTIMEOUT=10
 
 # Shared config among different machines
 
@@ -81,8 +99,8 @@ if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]]; then
     else
         source "${SHELL_CONFIG_ROOT}/third_party/spaceship-prompt/spaceship.zsh"
     fi
-    SPACESHIP_PROMPT_ORDER[3]=host
-    SPACESHIP_PROMPT_ORDER[4]=dir
+
+    source ~/.local/share/shell_config/spaceship_prompt_settings.zsh
 
     # zsh-autosuggestions
     if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
