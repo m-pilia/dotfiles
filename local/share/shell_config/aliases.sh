@@ -64,3 +64,13 @@ function find_static_symbol() {
 function find_dynamic_symbol() {
 	scanelf -ls +"$1" | grep "$1"
 }
+
+alias massif='valgrind --tool=massif'
+
+function gperftools_heap_profiler() {
+	echo "Visualise profiling data with \`pprof --gv heap_profile.xxxx.hprof\`"
+	env \
+		LD_PRELOAD=/usr/lib/libtcmalloc.so \
+		HEAPPROFILE="$(pwd)"/heap_profile.hprof \
+		"$@"
+}
