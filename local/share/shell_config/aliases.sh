@@ -74,3 +74,12 @@ function gperftools_heap_profiler() {
 		HEAPPROFILE="$(pwd)"/heap_profile.hprof \
 		"$@"
 }
+
+function gdb_attach() {
+	if [ "$(cat /proc/sys/kernel/yama/ptrace_scope)" -ne 0 ]; then
+		echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+	fi
+	local bin=$1
+	shift
+	gdb -q "$bin" "$(pgrep "$bin")" "$@"
+}
