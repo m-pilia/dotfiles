@@ -31,3 +31,4 @@
     insteadOf = git://github.com/
 [alias]
     orphank = !gitk --all --date-order `git reflog | cut -c1-7`&
+    adog = log --graph --abbrev-commit --decorate --format=format:'%C("#b26818")%h%C(reset) - %C(white)%aD%C(reset) %C(green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n          %C(normal)%s%C(reset) (%C(blue)%an <%ae>%C(reset))' --all
