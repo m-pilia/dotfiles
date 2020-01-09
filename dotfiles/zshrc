@@ -138,4 +138,9 @@ if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]]; then
     else
         source "${SHELL_CONFIG_ROOT}/third_party/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     fi
+
+    # ROS
+    if [ -f /opt/ros/melodic/setup.zsh ]; then
+        source /opt/ros/melodic/setup.zsh
+    fi
 fi
