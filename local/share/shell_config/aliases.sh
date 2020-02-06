@@ -83,3 +83,11 @@ function gdb_attach() {
 	shift
 	gdb -q "$bin" "$(pgrep "$bin")" "$@"
 }
+
+function gif_args() {
+	if [ $# -ne 3 ]; then
+		echo "Usage: gif_args <width> <fps> <speedup>"
+		return 1
+	fi
+	echo -vf "fps=${2:-12},scale=${1:-600}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse,setpts=$(echo "scale=2; 1/${3:-1}" | bc)*PTS" -loop 0
+}
