@@ -2,7 +2,7 @@
 [Desktop Entry]
 Name=Signal
 Comment=Private messaging from your desktop
-Exec="/opt/Signal/signal-desktop" --start-in-tray %U
+Exec="/usr/bin/signal-desktop" --start-in-tray %U
 Terminal=false
 Type=Application
 Icon=signal-desktop
