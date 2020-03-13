@@ -21,7 +21,7 @@
         {
             "before":["leader", "<CR>"],
             "commands": [
-                ":nohl",
+                ":nohl"
             ]
         },
         {
@@ -43,7 +43,7 @@
         {
             "before": ["leader", "w"],
             "commands": [
-                "workbench.action.files.save",
+                "workbench.action.files.save"
             ]
         }
     ],
@@ -62,5 +62,5 @@
         "statusBar.noFolderBackground": "#8ac6f2",
         "statusBar.debuggingBackground": "#8ac6f2"
     },
-    "vim.hlsearch": true,
+    "vim.hlsearch": true
 }
