@@ -1,0 +1,40 @@
+name: Checks
+
+on: push
+
+jobs:
+  ShellCheck:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Run ShellCheck
+      run: |
+        find . \
+            -type f \
+            -name '*.sh' \
+            -exec docker run --rm -v "$(pwd):/mnt" koalaman/shellcheck:v0.7.0 {} +
+
+  jsonlint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Run jsonlint
+      run: |
+        find . \
+            -type f \
+            -name '*.json' \
+            -exec docker run --rm -v "$(pwd):/json" peterdavehello/jsonlint:latest jsonlint -q {} \;
+
+  desktop-file-validate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Run desktop-file-validate
+      run: |
+        find . \
+            -type f \
+            -name '*.desktop' \
+            -exec docker run --rm -v "$(pwd)":/mnt martinopilia/desktop-file-utils:latest {} + || true
