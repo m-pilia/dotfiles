@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # shellcheck disable=2155,2006
 
 # editor

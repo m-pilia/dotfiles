@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # shellcheck disable=2164,2155
 
 alias ls='ls --color=auto'
