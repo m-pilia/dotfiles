@@ -1,31 +1,38 @@
 #!/usr/bin/env bash
+# shellcheck disable=2156
 
 set -euo pipefail
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+dry_run=
 force=
-drop_in=
+third_party=
 
 # Parse arguments
 while [[ "$#" -gt 0 ]]; do case $1 in
+	-d|--dry-run) dry_run=1;;
 	-f|--force) force=f;;
-	-d|--drop-in) drop_in=1;;
+	-t|--third-party) third_party=1;;
 	*) echo "Unknown parameter: $1"; exit 1;;
 esac; shift; done
 
-cd "$dir"
+cd "$dir/home"
 
-for file in dotfiles/**; do
-	dotfile=$(basename "$file")
-	echo "symlink ~/.$dotfile"
-	ln -s$force "$dir/dotfiles/$dotfile" "$HOME/.$dotfile"
-done
+# Create folders
+find . \
+	-mindepth 1 \
+	-type d \
+	-printf "mkdir -p \"$HOME/%P\"\n" \
+	-exec bash -c "[ $dry_run ] || mkdir -p \"$HOME/{}\"" \;
 
-for folder in 'local' 'config'; do
-	find "$folder" -type d -printf "mkdir ~/.%p\n" -exec mkdir -p "$HOME/.{}" \;
-	find "$folder" -type f -printf "symlink ~/.%p\n" -exec ln -s$force "$dir/{}" "$HOME/.{}" \;
-done
+# Symlink files
+find . \
+	-mindepth 1 \
+	-type f \
+	-printf "ln -s$force \"$dir/home/%P\" \"$HOME/%P\"\n" \
+	-exec bash -c "[ $dry_run ] || ln -s$force \"$dir/home/{}\" \"$HOME/{}\"" \;
 
-if [ $drop_in ]; then
-	bash install_third_party.sh
+# Fetch third party dependencies
+if [ $third_party ]; then
+	bash "$dir/install_third_party.sh"
 fi
