@@ -14,7 +14,9 @@ pacman -S \
     fd \
     fzf \
     ksshaskpass \
-    rg \
+    pax-utils \
+    powerline-fonts \
+    ripgrep \
     thefuck \
     zsh \
     zsh-autosuggestions \
