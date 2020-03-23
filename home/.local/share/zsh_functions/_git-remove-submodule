@@ -1,0 +1,5 @@
+#compdef git-remove-submodule
+#description remove a git submodule
+
+_arguments \
+   '1:submodule-path:_path_files -/'
