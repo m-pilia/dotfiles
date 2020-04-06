@@ -2,8 +2,15 @@
 export SHELL_CONFIG_ROOT=$(dirname "$(dirname "$(readlink -f ~/.zshrc)")")
 
 # Detect SSH session
+export SSH_SESSION_DETECTED=
 if [[ -n "${SSH_CLIENT:-}" ]] || [[ -n "${SSH_TTY:-}" ]]; then
     export SSH_SESSION_DETECTED=1
+fi
+
+# Detect Windows Subsystem for Linux
+export WSL_DETECTED=
+if [[ -n "${IS_WSL:-}" ]] || [[ -n "${WSL_DISTRO_NAME:-}" ]]; then
+    export WSL_DETECTED=1
 fi
 
 # Prompt format (fallback)
@@ -91,7 +98,7 @@ if command -v thefuck >/dev/null; then
 fi
 
 # Run fancier stuff only in non-login shells or in ssh shells
-if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]]; then
+if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]] || [[ -n "${WSL_DETECTED}" ]]; then
 
     # spaceship-prompt
     if [ -f /usr/lib/spaceship-prompt/spaceship.zsh ]; then
