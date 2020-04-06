@@ -32,12 +32,6 @@ curl -LJO "https://github.com/junegunn/fzf-bin/releases/download/0.21.0/fzf-0.21
 tar -xf fzf-*.tgz
 mv fzf "$bin_dir/fzf"
 
-# fd
-cd "$tmp"
-curl -LJO "https://github.com/sharkdp/fd/releases/download/v7.4.0/fd-v7.4.0-x86_64-unknown-linux-musl.tar.gz"
-tar -xf fd-*.tar.gz
-mv fd*/fd "$bin_dir/fd"
-
 # Autojump
 git clone https://github.com/wting/autojump.git "$tmp/autojump"
 cd "$tmp/autojump" || exit 1
@@ -51,3 +45,17 @@ install_git https://github.com/denysdovhan/spaceship-prompt.git c047e3f
 install_git https://github.com/zsh-users/zsh-autosuggestions.git d43c309
 install_git https://github.com/zsh-users/zsh-completions.git 8def5f1
 install_git https://github.com/zsh-users/zsh-syntax-highlighting.git e7d3fbc
+
+# fd
+cd "$tmp"
+curl -LJO "https://github.com/sharkdp/fd/releases/download/v7.4.0/fd-v7.4.0-x86_64-unknown-linux-musl.tar.gz"
+tar -xf fd-*.tar.gz
+mv fd*/fd "$bin_dir/fd"
+mv fd*/autocomplete/_fd "${third_party}"/zsh-completions/src/_fd
+
+# ripgrep
+cd "$tmp"
+curl -LJO "https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep-12.0.1-x86_64-unknown-linux-musl.tar.gz"
+tar -xf ripgrep-*.tar.gz
+mv ripgrep*/rg "$bin_dir/rg"
+mv ripgrep*/complete/_rg "${third_party}"/zsh-completions/src/_rg
