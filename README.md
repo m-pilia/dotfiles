@@ -30,6 +30,8 @@ yay -S \
 
 ```
 
+Recommended font on Windows, to run in WSL: `DejaVu Sans Mono for Powerline`.
+
 # Caveat emptor
 
 * This configuration assumes that tools and `zsh` plugins are installed at
