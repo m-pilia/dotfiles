@@ -93,3 +93,5 @@ if [[ -d ~/.gem/ruby ]]; then
 	export GEM_HOME=~/.gem
 fi
 
+# Julia Pkg server
+export JULIA_PKG_SERVER=pkg.julialang.org
