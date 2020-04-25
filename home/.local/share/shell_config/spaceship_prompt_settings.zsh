@@ -1,9 +1,12 @@
+source "${SHELL_CONFIG_ROOT}/home/.local/share/shell_config/spaceship_tmux.zsh"
+
 SPACESHIP_PROMPT_ORDER=(
     time
     user
     host
     dir
     vi_mode
+    tmux
     git
     hg
     package

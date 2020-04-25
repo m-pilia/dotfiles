@@ -13,6 +13,12 @@ if [[ -n "${IS_WSL:-}" ]] || [[ -n "${WSL_DISTRO_NAME:-}" ]]; then
     export WSL_DETECTED=1
 fi
 
+# Detect tmux
+export TMUX_DETECTED=
+if [[ -n "${TMUX}" ]]; then
+    export TMUX_DETECTED=1
+fi
+
 # Prompt format (fallback)
 export PROMPT="[%n@%M %~] %% "
 
@@ -103,7 +109,7 @@ if command -v thefuck >/dev/null; then
 fi
 
 # Run fancier stuff only in non-login shells or in ssh shells
-if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]] || [[ -n "${WSL_DETECTED}" ]]; then
+if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]] || [[ -n "${WSL_DETECTED}" ]] || [[ -n "${TMUX_DETECTED}" ]]; then
 
     # spaceship-prompt
     if [ -f /usr/lib/spaceship-prompt/spaceship.zsh ]; then

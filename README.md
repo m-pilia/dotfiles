@@ -18,6 +18,7 @@ pacman -S \
     powerline-fonts \
     ripgrep \
     thefuck \
+    tmux \
     zsh \
     zsh-autosuggestions \
     zsh-completions \

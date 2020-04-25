@@ -95,3 +95,8 @@ fi
 
 # Julia Pkg server
 export JULIA_PKG_SERVER=pkg.julialang.org
+
+# TERM for tmux
+if [[ -n "${TMUX_DETECTED}" ]]; then
+    export TERM=screen-256color
+fi
