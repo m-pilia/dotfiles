@@ -79,6 +79,11 @@ bindkey -M vicmd '~' vi-swap-case
 # Timeout for multi-character key sequences
 export KEYTIMEOUT=10
 
+# Drop-in binary path
+if [ -d "${SHELL_CONFIG_ROOT}/third_party/_bin" ]; then
+    export PATH=${PATH}:${SHELL_CONFIG_ROOT}/third_party/_bin
+fi
+
 # Shared config among different machines
 
 source ~/.local/share/shell_config/variables.sh
@@ -127,11 +132,10 @@ if [[ ! -o login ]] || [[ -n "${SSH_SESSION_DETECTED}" ]] || [[ -n "${WSL_DETECT
     # fzf
     export FZF_DEFAULT_COMMAND='fd --type f'
 
-    if command -v fzf >/dev/null; then
+    if [ -f /usr/share/fzf/key-bindings.zsh ]; then
         source /usr/share/fzf/key-bindings.zsh
         source /usr/share/fzf/completion.zsh
     else
-        export PATH=${PATH}:${SHELL_CONFIG_ROOT}/third_party/_bin
         source "${SHELL_CONFIG_ROOT}/third_party/fzf/shell/key-bindings.zsh"
         source "${SHELL_CONFIG_ROOT}/third_party/fzf/shell/completion.zsh"
     fi
