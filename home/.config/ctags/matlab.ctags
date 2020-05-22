@@ -1,0 +1,1 @@
+--mline-regex-matlab=/^[ \t ]*function([] A-Za-z0-9,_[]+=[ ]?|[ ]+)(\.\.\.\s*)?([^.(]+).*$/\3/f,function/])
