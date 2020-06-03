@@ -92,3 +92,7 @@ function gif_args() {
 	fi
 	echo -vf "fps=${2:-12},scale=${1:-600}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse,setpts=$(echo "scale=2; 1/${3:-1}" | bc)*PTS" -loop 0
 }
+
+function compare_dirs() {
+    python -c "import filecmp; filecmp.dircmp('${1}', '${2}').report_full_closure()"
+}
