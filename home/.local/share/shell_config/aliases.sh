@@ -17,6 +17,10 @@ alias rgfzf='rg --no-line-number --no-heading . | fzf --delimiter=: --nth=2..'
 
 alias julia='julia -pauto'
 
+if [[ -n "${WSL_DETECTED}" ]]; then
+    alias wslshutdown='history -a && cmd.exe /C wsl --shutdown'
+fi
+
 function xdocker() {
 	docker run \
 		-it \
