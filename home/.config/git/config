@@ -21,6 +21,8 @@
 [diff]
     tool = meld
     algorithm = histogram
+[grep]
+	patternType = perl
 [color]
     ui = auto
 [rerere]
