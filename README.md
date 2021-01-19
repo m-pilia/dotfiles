@@ -19,6 +19,7 @@ pacman -S \
     ripgrep \
     thefuck \
     tmux \
+    ttf-cascadia-code \
     zsh \
     zsh-autosuggestions \
     zsh-completions \
@@ -30,8 +31,6 @@ yay -S \
     spaceship-prompt-git \
 
 ```
-
-Recommended font on Windows, to run in WSL: `DejaVu Sans Mono for Powerline`.
 
 # Caveat emptor
 
