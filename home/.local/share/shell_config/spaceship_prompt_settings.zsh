@@ -1,5 +1,11 @@
 source "${SHELL_CONFIG_ROOT}/home/.local/share/shell_config/spaceship_tmux.zsh"
 
+# Do not show git status in WSL (for performance reasons)
+local _SPACESHIP_GIT_STATUS=
+if [[ -z "${WSL_DETECTED}" ]]; then
+    _SPACESHIP_GIT_STATUS=git
+fi
+
 SPACESHIP_PROMPT_ORDER=(
     time
     user
@@ -7,7 +13,7 @@ SPACESHIP_PROMPT_ORDER=(
     dir
     vi_mode
     tmux
-    git
+    $_SPACESHIP_GIT_STATUS
     hg
     package
     node
