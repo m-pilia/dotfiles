@@ -2,7 +2,13 @@
 # shellcheck disable=2155,2006
 
 # editor
-export EDITOR=vim
+if command -v nvim &> /dev/null ; then
+    export EDITOR=nvim
+    export VISUAL=nvim
+else
+    export EDITOR=vim
+    export VISUAL=vim
+fi
 
 # local binaries
 export PATH=~/.local/bin:$PATH
@@ -36,9 +42,6 @@ fi
 if command -v pipenv > /dev/null; then
 	eval "$(pipenv --completion)"
 fi
-
-# visual editor
-export VISUAL="vim"
 
 # history timestamp format
 export HISTTIMEFORMAT="%d/%m/%y %T "
