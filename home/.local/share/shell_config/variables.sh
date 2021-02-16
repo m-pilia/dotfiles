@@ -103,3 +103,8 @@ export JULIA_PKG_SERVER=pkg.julialang.org
 if [[ -n "${TMUX_DETECTED}" ]]; then
     export TERM=screen-256color
 fi
+
+# TTY for gpg on WSL
+if [[ -n "${WSL_DETECTED}" ]]; then
+    export GPG_TTY=$(tty)
+fi
