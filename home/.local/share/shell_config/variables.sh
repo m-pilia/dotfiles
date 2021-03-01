@@ -4,11 +4,11 @@
 # editor
 if command -v nvim &> /dev/null ; then
     export EDITOR=nvim
-    export VISUAL=nvim
 else
     export EDITOR=vim
-    export VISUAL=vim
 fi
+
+export VISUAL=$EDITOR
 
 # local binaries
 export PATH=~/.local/bin:$PATH
