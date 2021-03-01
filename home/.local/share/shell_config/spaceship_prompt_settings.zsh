@@ -2,7 +2,7 @@ source "${SHELL_CONFIG_ROOT}/home/.local/share/shell_config/spaceship_tmux.zsh"
 
 # Do not show git status in WSL (for performance reasons)
 local _SPACESHIP_GIT_STATUS=
-if [[ -z "${WSL_DETECTED}" ]]; then
+if [[ -z "${WSL_DETECTED}" ]] || [[ -n "${SHELL_CONFIG_FORCE_GIT_STATUS}" ]]; then
     _SPACESHIP_GIT_STATUS=git
 fi
 
