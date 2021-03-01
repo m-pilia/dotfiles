@@ -10,7 +10,11 @@ fi
 # Detect Windows Subsystem for Linux
 export WSL_DETECTED=
 if [[ -n "${IS_WSL:-}" ]] || [[ -n "${WSL_DISTRO_NAME:-}" ]]; then
-    export WSL_DETECTED=1
+    if uname -a | grep 'microsoft-standard' ; then
+        export WSL_DETECTED=2
+    else
+        export WSL_DETECTED=1
+    fi
 fi
 
 # Detect tmux
