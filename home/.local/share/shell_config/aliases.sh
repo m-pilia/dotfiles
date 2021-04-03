@@ -70,6 +70,10 @@ function find_dynamic_symbol() {
 	scanelf -ls +"$1" | grep "$1"
 }
 
+function search_dynamic_symbol() {
+	(cd /usr/lib && fd -i ".*${1}.*\.so" -x bash -c "nm --dynamic --with-symbol-versions --defined-only {} 2>/dev/null | rg -i \"$2\" && echo {}")
+}
+
 alias massif='valgrind --tool=massif'
 
 function gperftools_heap_profiler() {
