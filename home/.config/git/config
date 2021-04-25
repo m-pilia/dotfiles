@@ -33,8 +33,10 @@
     insteadOf = git://github.com/
 [submodule]
     recurse = true
+[pretty]
+    twoliner = format:'%C("#b26818")%h%C(reset) - %C(white)%aD%C(reset) %C(green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n          %C(normal)%s%C(reset) (%C(blue)%an <%ae>%C(reset))'
 [alias]
     orphank = !gitk --all --date-order `git reflog | cut -c1-7`&
-    adog = log --graph --abbrev-commit --decorate --format=format:'%C("#b26818")%h%C(reset) - %C(white)%aD%C(reset) %C(green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n          %C(normal)%s%C(reset) (%C(blue)%an <%ae>%C(reset))' --all
+    adog = log --graph --abbrev-commit --decorate --format=twoliner --all
     ignore = update-index --assume-unchanged
     no-ignore = !git update-index --no-assume-unchanged $(git ls-files $(git rev-parse --show-toplevel))
