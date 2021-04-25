@@ -21,3 +21,54 @@ fzf-command-widget() {
 }
 
 zle -N fzf-command-widget
+
+_fzf_complete_git() {
+    # Command line being completed
+    local input_args
+    input_args="$@"
+
+    # Check if the command line matches a given pattern
+    local matches_pattern() {
+        grep -Ee "$1" <<< "$input_args" &>/dev/null
+    }
+
+    # List of completion items
+    local completion_items
+    completion_items=
+
+    # Arguments to FZF
+    local fzf_args
+    fzf_args=(
+        --reverse
+        --multi
+        --ansi
+        --height '80%'
+        --preview-window 'right:70%'
+    )
+
+    # Completed commands
+    if matches_pattern '\s*git (co|checkout).*' ; then
+        completion_items=$(git branch -vv --all --color=always | sed 's,^..,,')
+        fzf_args+=(
+            --preview 'git log --oneline --graph --date=short --color=always --format=twoliner $(cut -d" " -f1 <<< {})'
+        )
+    elif matches_pattern '\s*git (add).*' ; then
+        completion_items=$(git diff --name-only)
+        fzf_args+=(
+            --preview 'git diff --color=always -- {}'
+        )
+    fi
+
+    # Invoke completion function (fallback to buit-in zsh completion)
+    if [ -n $completion_items ]; then
+        _fzf_complete $fzf_args -- "$@" < <(
+            echo $completion_items
+        )
+    else
+        eval "zle ${fzf_default_completion:-expand-or-complete}"
+    fi
+}
+
+_fzf_complete_git_post() {
+    awk '{print $1}'
+}
