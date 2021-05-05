@@ -46,9 +46,14 @@ _fzf_complete_git() {
         --preview-window 'right:70%'
     )
 
+    # List branches sorted by most recent committer date
+    local list_branches() {
+        git branch -vv --sort=-committerdate --color=always "$@" | sed 's,^..,,'
+    }
+
     # Completed commands
     if matches_pattern '\s*git (co|checkout).*' ; then
-        completion_items=$(git branch -vv --all --color=always | sed 's,^..,,')
+        completion_items=$(list_branches && list_branches --remotes)
         fzf_args+=(
             --preview 'git log --oneline --graph --date=short --color=always --format=twoliner $(cut -d" " -f1 <<< {})'
         )
