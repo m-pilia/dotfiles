@@ -48,8 +48,8 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # make flags
 export MAKEFLAGS="-j $((`nproc` + 0))"
-export CFLAGS="-fdiagnostics-color"
-export CXXFLAGS=$CFLAGS
+export CFLAGS="${CFLAGS} -fdiagnostics-color=always"
+export CXXFLAGS="${CXXFLAGS} -fdiagnostics-color=always"
 
 # ssh helper
 if command -v ksshaskpass > /dev/null; then
