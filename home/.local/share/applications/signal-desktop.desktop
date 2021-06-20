@@ -2,7 +2,7 @@
 [Desktop Entry]
 Name=Signal
 Comment=Private messaging from your desktop
-Exec="/usr/bin/signal-desktop" --start-in-tray %U
+Exec="/usr/bin/signal-desktop" --start-in-tray --force-device-scale-factor=2.0 %U
 Terminal=false
 Type=Application
 Icon=signal-desktop
