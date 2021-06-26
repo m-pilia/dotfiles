@@ -16,7 +16,7 @@ export PATH=~/.local/bin:$PATH
 # personal scripts
 export PATH=$PATH:~/Cryptbox/SW/bin/
 
-if [[ -x "${SSH_SESSION_DETECTED}:-" ]] && [ "$(bc -l <<< "$(get_dpi) > 200")" -eq 1 ]; then
+if [[ -x "${SSH_SESSION_DETECTED:-}" ]] && [ "$(bc -l <<< "$(get_dpi) > 200")" -eq 1 ]; then
 	# HiDPI support for QT applications (must be an integer)
 	#export QT_DEVICE_PIXEL_RATIO=2
 
