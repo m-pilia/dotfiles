@@ -40,3 +40,5 @@
     adog = log --graph --abbrev-commit --decorate --format=twoliner --all
     ignore = update-index --assume-unchanged
     no-ignore = !git update-index --no-assume-unchanged $(git ls-files $(git rev-parse --show-toplevel))
+[pull]
+	ff = only
