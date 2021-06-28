@@ -19,6 +19,7 @@ alias julia='julia -pauto'
 
 if [[ -n "${WSL_DETECTED}" ]]; then
     alias wslshutdown='history -a && cmd.exe /C wsl --shutdown'
+    alias wslterminate='history -a && cmd.exe /C wsl --terminate "${WSL_DISTRO_NAME}"'
 fi
 
 function xdocker() {
