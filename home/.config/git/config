@@ -3,7 +3,6 @@
     email = martino.pilia@gmail.com
     signingkey = 95565E17
 [core]
-    editor = vim
     askpass = /usr/bin/ksshaskpass
     autocrlf = input
     whitespace = trailing-space,\
