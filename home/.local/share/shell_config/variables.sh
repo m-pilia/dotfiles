@@ -108,3 +108,6 @@ fi
 if [[ -n "${WSL_DETECTED}" ]]; then
     export GPG_TTY=$(tty)
 fi
+
+# Rust
+export RUST_BACKTRACE=1
