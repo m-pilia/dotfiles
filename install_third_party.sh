@@ -69,7 +69,7 @@ python install.py -d "$autojump_dir"
 
 # Other components
 install_git https://github.com/djui/alias-tips.git 29bf28c
-install_git https://github.com/junegunn/fzf.git 1dd256a
+install_git https://github.com/junegunn/fzf.git 9cb7a36
 install_git https://github.com/denysdovhan/spaceship-prompt.git c047e3f
 install_git https://github.com/zsh-users/zsh-autosuggestions.git d43c309
 install_git https://github.com/zsh-users/zsh-completions.git 8def5f1
