@@ -58,9 +58,14 @@ _fzf_complete_git() {
             --preview 'git log --oneline --graph --date=short --color=always --format=twoliner $(cut -d" " -f1 <<< {})'
         )
     elif matches_pattern '\s*git (add).*' ; then
-        completion_items=$(git diff --name-only)
+        completion_items=$(git status --porcelain | cut -c 4-)
         fzf_args+=(
-            --preview 'git diff --color=always -- {}'
+            --preview '
+                if git ls-files --error-unmatch {} &>/dev/null ; then
+                    git diff --color=always -- {}
+                else
+                    git diff --no-index --color=always -- /dev/null {}
+                fi'
         )
     fi
 
