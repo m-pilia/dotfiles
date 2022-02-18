@@ -4,6 +4,8 @@
 alias ls='ls --color=auto'
 alias ll='ls -l'
 
+alias grep='grep --color=auto'
+
 # exec emacs in a 256 color terminal
 alias emacs='env TERM=xterm-256color emacs -nw'
 
