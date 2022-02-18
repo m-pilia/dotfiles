@@ -108,6 +108,7 @@ function compare_dirs() {
     python -c "import filecmp; filecmp.dircmp('${1}', '${2}').report_full_closure()"
 }
 
-function rgsed() {
-    rg "$1" --files-with-matches | xargs sed -i "s/$1/$2/g"
-}
+function rgsed() {(
+    set -euo pipefail
+    eval "rg '$1' --files-with-matches | xargs sed -Ei 's/$1/$2/g'"
+)}
