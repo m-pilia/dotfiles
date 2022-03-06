@@ -41,3 +41,5 @@
     no-ignore = !git update-index --no-assume-unchanged $(git ls-files $(git rev-parse --show-toplevel))
 [pull]
 	ff = only
+[init]
+    defaultBranch = master
