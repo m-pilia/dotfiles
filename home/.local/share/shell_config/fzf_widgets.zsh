@@ -58,7 +58,12 @@ _fzf_complete_git() {
             --preview 'git log --oneline --graph --date=short --color=always --format=twoliner $(cut -d" " -f1 <<< {})'
         )
     elif matches_pattern '\s*git (add).*' ; then
-        completion_items=$(git status --porcelain | cut -c 4-)
+        completion_items=$(
+            git status --porcelain \
+            | awk -v r="$(git rev-parse --show-toplevel)" '{print r "/" substr($0, 4)}' \
+            | tr '\n' '\0' \
+            | xargs -0 -n1 realpath --relative-to="$(pwd)"
+        )
         fzf_args+=(
             --preview '
                 if git ls-files --error-unmatch {} &>/dev/null ; then
