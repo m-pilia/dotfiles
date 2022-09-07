@@ -83,8 +83,47 @@ bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M vicmd "?" history-incremental-pattern-search-backward
 bindkey -M vicmd "/" history-incremental-pattern-search-forward
 bindkey -M vicmd 'u' undo
-bindkey -M vicmd '^r' redo
+bindkey -M vicmd 'U' redo
 bindkey -M vicmd '~' vi-swap-case
+
+# Text objects
+# From https://tinyurl.com/5cx8fnc3
+autoload -Uz select-bracketed select-quoted
+zle -N select-bracketed
+zle -N select-quoted
+for km in viopp visual; do
+    bindkey -M $km -- '-' vi-up-line-or-history
+    for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+        bindkey -M $km $c select-quoted
+    done
+    for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+        bindkey -M $km $c select-bracketed
+    done
+done
+
+# Surround
+autoload -Uz surround
+zle -N add-surround surround
+zle -N change-surround surround
+zle -N delete-surround surround
+bindkey -M vicmd ys add-surround
+bindkey -M vicmd cs change-surround
+bindkey -M vicmd ds delete-surround
+bindkey -M visual S add-surround
+
+# Yank to clipboard
+function vi-yank-to-clipboard {
+    zle vi-yank
+    if type xclip &> /dev/null ; then
+        echo -n "$CUTBUFFER" | xclip -i -selection clipboard
+    elif type wl-copy &> /dev/null ; then
+        echo -n "$CUTBUFFER" | wl-copy
+    elif type win32yank &> /dev/null ; then
+        echo -n "$CUTBUFFER" | win32yank -i
+    fi
+}
+zle -N vi-yank-to-clipboard
+bindkey -M vicmd 'y' vi-yank-to-clipboard
 
 # Timeout for multi-character key sequences
 export KEYTIMEOUT=10
