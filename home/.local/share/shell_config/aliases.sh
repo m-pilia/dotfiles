@@ -19,6 +19,8 @@ alias rgfzf='rg --no-line-number --no-heading . | fzf --delimiter=: --nth=2..'
 
 alias julia='julia -pauto'
 
+alias drop_last_command="sed -i '$ d' \"\${HISTFILE}\" && sed -i '$ d' \"\${HISTFILE}\""
+
 if [[ -n "${WSL_DETECTED}" ]]; then
     alias wslshutdown='history -a && cmd.exe /C wsl --shutdown'
     alias wslterminate='history -a && cmd.exe /C wsl --terminate "${WSL_DISTRO_NAME}"'
