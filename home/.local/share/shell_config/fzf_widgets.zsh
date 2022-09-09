@@ -53,7 +53,7 @@ _fzf_complete_git() {
 
     # Completed commands
     if matches_pattern '\s*git (co|checkout).*' ; then
-        completion_items=$(list_branches && list_branches --remotes)
+        completion_items=$(list_branches)
         fzf_args+=(
             --preview 'git log --oneline --graph --date=short --color=always --format=twoliner $(cut -d" " -f1 <<< {})'
         )
