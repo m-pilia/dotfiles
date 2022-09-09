@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui>
-<kpartgui version="29" name="session">
+<?xml version='1.0'?>
+<!DOCTYPE gui SYSTEM 'kpartgui.dtd'>
+<gui name="session" version="30">
  <MenuBar>
   <Menu name="file">
    <Action name="file_save_as" group="session-operations"/>
@@ -30,6 +31,7 @@
    <Action name="monitor-process-finish" group="session-view-operations"/>
    <Separator group="session-view-operations"/>
    <Action name="view-readonly" group="session-view-operations"/>
+   <Action name="allow-mouse-tracking" group="session-view-operations"/>
    <Separator group="session-view-operations"/>
    <Action name="enlarge-font" group="session-view-operations"/>
    <Action name="reset-font-size" group="session-view-operations"/>
@@ -55,11 +57,21 @@
   <Action name="adjust-history"/>
   <Separator/>
   <Action name="view-readonly"/>
+  <Action name="allow-mouse-tracking"/>
+  <Separator/>
   <Action name="switch-profile"/>
   <Action name="edit-current-profile"/>
  </Menu>
+ <ToolBar name="sessionToolbar">
+  <text>Session Toolbar</text>
+  <index>1</index>
+  <Spacer/>
+  <Action name="edit_copy"/>
+  <Action name="edit_paste"/>
+  <Action name="edit_find"/>
+ </ToolBar>
  <ActionProperties>
-  <Action name="sigkill-signal" shortcut="Ctrl+Alt+Shift+C"/>
   <Action name="open-browser" shortcut="Shift+F4"/>
+  <Action name="sigkill-signal" shortcut="Ctrl+Alt+Shift+C"/>
  </ActionProperties>
-</kpartgui>
+</gui>

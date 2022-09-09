@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE gui SYSTEM 'kpartgui.dtd'>
-<gui version="19" name="konsole">
+<gui name="konsole" version="19">
  <MenuBar>
   <Menu name="file">
    <text>File</text>
@@ -75,5 +75,7 @@
   <Action name="move-tab-to-right" shortcut="Ctrl+Shift+Right"/>
   <Action name="next-container" shortcut=""/>
   <Action name="split-view-left-right" shortcut="Alt+Shift+D"/>
+  <Action name="focus-view-above" shortcut="Alt+Up"/>
+  <Action name="focus-view-below" shortcut="Alt+Down"/>
  </ActionProperties>
 </gui>
