@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 __command_selector() {
-    local commands=$(echo "${(k)commands}" | sed 's, ,\n,g' | grep -v '^_')
+    local commands=$(echo "${(k)commands} ${(k)builtins} ${(k)functions} ${(k)aliases}" | sed 's, ,\n,g' | grep -v '^_')
     setopt localoptions pipefail 2> /dev/null
     echo "$commands" | \
         FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} \
