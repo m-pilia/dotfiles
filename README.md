@@ -21,14 +21,9 @@ pacman -S \
     tmux \
     ttf-cascadia-code \
     zsh \
-    zsh-autosuggestions \
-    zsh-completions \
-    zsh-syntax-highlighting \
 
 yay -S \
-    alias-tips-git \
     autojump \
-    spaceship-prompt-git \
 
 ```
 

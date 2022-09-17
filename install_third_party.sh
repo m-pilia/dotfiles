@@ -4,16 +4,17 @@
 
 set -euo pipefail
 
-fzf_url="https://github.com/junegunn/fzf-bin/releases/download/0.21.0/fzf-0.21.0"
-fd_url="https://github.com/sharkdp/fd/releases/download/v7.4.0/fd-v7.4.0-x86_64"
-rg_url="https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep-12.0.1-x86_64"
+fzf_url="https://github.com/junegunn/fzf/releases/download/0.33.0/fzf-0.33.0"
+fd_url="https://github.com/sharkdp/fd/releases/download/v8.4.0/fd-v8.4.0-x86_64"
+rg_url="https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64"
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 third_party="$dir/third_party"
-bin_dir="$dir/third_party/_bin"
+bin_dir="$third_party/_bin"
+completions_dir="$third_party/_completions"
 autojump_dir="$third_party/_share/autojump"
 
-mkdir -p "$autojump_dir" "$bin_dir"
+mkdir -p "$autojump_dir" "$bin_dir" "$completions_dir"
 
 tmp_dir="$(mktemp -d -p "${third_party}")"
 mkdir -p "${tmp_dir}" # on Windows it may not be created by mktemp
@@ -57,8 +58,8 @@ fi
 
 # fzf
 cd "$tmp_dir"
-curl -LJO "${fzf_url}-linux_amd64.tgz"
-tar -xf fzf-*.tgz
+curl -LJO "${fzf_url}-linux_amd64.tar.gz"
+tar -xf fzf-*.tar.gz
 mv fzf "$bin_dir/fzf"
 
 # Autojump
@@ -68,23 +69,18 @@ git checkout 06e082c
 python install.py -d "$autojump_dir"
 
 # Other components
-install_git https://github.com/djui/alias-tips.git 29bf28c
 install_git https://github.com/junegunn/fzf.git 9cb7a36
-install_git https://github.com/denysdovhan/spaceship-prompt.git c047e3f
-install_git https://github.com/zsh-users/zsh-autosuggestions.git d43c309
-install_git https://github.com/zsh-users/zsh-completions.git 8def5f1
-install_git https://github.com/zsh-users/zsh-syntax-highlighting.git e7d3fbc
 
 # fd
 cd "$tmp_dir"
 curl -LJO "${fd_url}-unknown-linux-musl.tar.gz"
 tar -xf fd-*.tar.gz
 mv fd*/fd "$bin_dir/fd"
-mv fd*/autocomplete/_fd "${third_party}"/zsh-completions/src/_fd
+mv fd*/autocomplete/_fd "${completions_dir}"/_fd
 
 # ripgrep
 cd "$tmp_dir"
 curl -LJO "${rg_url}-unknown-linux-musl.tar.gz"
 tar -xf ripgrep-*.tar.gz
 mv ripgrep*/rg "$bin_dir/rg"
-mv ripgrep*/complete/_rg "${third_party}"/zsh-completions/src/_rg
+mv ripgrep*/complete/_rg "${completions_dir}"/_rg

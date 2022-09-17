@@ -30,10 +30,8 @@ SPACESHIP_PROMPT_ORDER=(
     aws
     venv
     conda
-    pyenv
     dotnet
-    ember
-    kubecontext
+    kubectl
     terraform
     exec_time
     line_sep
