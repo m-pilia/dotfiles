@@ -115,3 +115,9 @@ function rgsed() {(
     pattern=${1//\//\\\/}
     eval "rg -l0 '$1' | xargs -0l sed -Ei 's/$pattern/$2/g'"
 )}
+
+function grepsed() {(
+    set -euo pipefail
+    pattern=${1//\//\\\/}
+    eval "grep -lERZ '$1' | xargs -0l sed -Ei 's/$pattern/$2/g'"
+)}
