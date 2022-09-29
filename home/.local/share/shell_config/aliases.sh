@@ -112,5 +112,6 @@ function compare_dirs() {
 
 function rgsed() {(
     set -euo pipefail
-    eval "rg '$1' --files-with-matches | xargs sed -Ei 's/$1/$2/g'"
+    pattern=${1//\//\\\/}
+    eval "rg -l0 '$1' | xargs -0l sed -Ei 's/$pattern/$2/g'"
 )}
