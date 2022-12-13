@@ -121,3 +121,19 @@ function grepsed() {(
     pattern=${1//\//\\\/}
     eval "grep -lERZ '$1' | xargs -0l sed -Ei 's/$pattern/$2/g'"
 )}
+
+# https://stackoverflow.com/a/17841619
+function strjoin {
+(
+    set -euo pipefail
+
+    delimiter=${1:-}
+    first_entry=${2:-}
+
+    if shift 2 ; then
+        printf "%s" "${first_entry}" "${@/#/$delimiter}"
+    else
+        echo "Usage: strjoin delimiter str1 [strn ...]"
+    fi
+)
+}
