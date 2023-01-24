@@ -113,13 +113,14 @@ function compare_dirs() {
 function rgsed() {(
     set -euo pipefail
     pattern=${1//\//\\\/}
-    eval "rg -l0 '$1' | xargs -0l sed -Ei 's/$pattern/$2/g'"
-)}
+    replacement=${2//\//\\\/}
+    grep_cmd='grep -lERZ'
 
-function grepsed() {(
-    set -euo pipefail
-    pattern=${1//\//\\\/}
-    eval "grep -lERZ '$1' | xargs -0l sed -Ei 's/$pattern/$2/g'"
+    if command -v rg &>/dev/null ; then
+        grep_cmd='rg -l0'
+    fi
+
+    eval "${grep_cmd} '$1' | xargs -0l sed -Ei 's/${pattern}/${replacement}/g'"
 )}
 
 # https://stackoverflow.com/a/17841619
