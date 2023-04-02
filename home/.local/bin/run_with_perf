@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# Run a program under `perf record`, while temporarily relaxing kernel hardening settings.
+#
+# To record calls based on frame pointer (requires to build with -fno-omit-frame-pointer):
+#   --call-graph fp
+# To record with DWARF (default stack size of 8 kB):
+#   --call-graph dwarf
+# To record with DWARF with largest stack size, might require to lower the frequency:
+#   --call-graph dwarf,65528 --freq 300
+# To record with last branch record (requires HW support):
+#   --call-graph lbr
+
+set -eu
+
+# Store current settings
+KPTR_RESTRICT=$(sudo sysctl kernel.kptr_restrict | cut -d= -f2 | sed 's, ,,')
+PARANOID=$(sudo sysctl kernel.perf_event_paranoid | cut -d= -f2 | sed 's, ,,')
+DEBUG_MASK=$(sudo stat -c '%a' /sys/kernel/debug)
+TRACING_MASK=$(sudo stat -c '%a' /sys/kernel/debug/tracing)
+
+dump_permissions() {
+    echo
+    echo "Current permissions:"
+    sudo sysctl kernel.kptr_restrict kernel.perf_event_paranoid
+    sudo stat -c '%n %a' /sys/kernel/debug /sys/kernel/debug/tracing
+    echo
+}
+
+set_permissions() {
+    kptr=$1
+    paranoid=$2
+    debug_mask=$3
+    tracing_mask=$4
+    echo
+    echo "Setting permissions"
+    sudo sysctl -wq kernel.kptr_restrict="$kptr" kernel.perf_event_paranoid="$paranoid"
+    sudo mount -o remount,mode="$debug_mask" /sys/kernel/debug
+    sudo mount -o remount,mode="$tracing_mask" /sys/kernel/debug/tracing
+    dump_permissions
+}
+
+restore_permissions() {
+    echo
+    echo "Restoring permissions"
+    set_permissions "$KPTR_RESTRICT" "$PARANOID" "$DEBUG_MASK" "$TRACING_MASK"
+}
+
+trap restore_permissions EXIT
+trap ':' TERM INT # Ensure the restore handler is called only once
+
+dump_permissions
+set_permissions 0 -1 755 755
+
+perf record "${@}"
+
+sudo chown "$(id -u):$(id -g)" perf.data*
