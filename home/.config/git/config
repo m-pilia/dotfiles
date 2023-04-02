@@ -39,6 +39,7 @@
     adog = log --graph --abbrev-commit --decorate --format=twoliner --all
     ignore = update-index --assume-unchanged
     no-ignore = !git update-index --no-assume-unchanged $(git ls-files $(git rev-parse --show-toplevel))
+    log-number = !git log --oneline --color=always --decorate=full HEAD | nl -v 0 | less -R
 [pull]
 	ff = only
 [init]
