@@ -23,7 +23,7 @@ pacman -S \
     zsh \
 
 yay -S \
-    autojump \
+    autojump-rs \
 
 ```
 
