@@ -98,6 +98,15 @@ if     [[ ! -o login ]] \
 
     # zsh-syntax-highlighting (must be the last plugin sourced)
     source "${SHELL_CONFIG_MODULES}"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+    if [[ -n "${WSL_DETECTED}" ]]; then
+        # Notify Windows Terminal of the current path
+        # https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory
+        _keep_current_path() {
+            printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
+        }
+        precmd_functions+=(_keep_current_path)
+    fi
 fi
 
 # Key bindings
