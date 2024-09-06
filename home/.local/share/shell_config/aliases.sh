@@ -124,8 +124,7 @@ function rgsed() {(
 )}
 
 # https://stackoverflow.com/a/17841619
-function strjoin {
-(
+function strjoin() {(
     set -euo pipefail
 
     delimiter=${1:-}
@@ -136,5 +135,10 @@ function strjoin {
     else
         echo "Usage: strjoin delimiter str1 [strn ...]"
     fi
-)
-}
+)}
+
+function trim_whitespace() {(
+    set -euo pipefail
+
+    awk '{$1=$1; print}' < /dev/stdin
+)}
