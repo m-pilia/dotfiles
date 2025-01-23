@@ -11,8 +11,10 @@ Example for Arch Linux:
 ```sh
 pacman -S \
     ccache \
+    difftastic \
     fd \
     fzf \
+    git-delta \
     ksshaskpass \
     pax-utils \
     powerline-fonts \

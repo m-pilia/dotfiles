@@ -5,6 +5,7 @@
 [core]
     askpass = /usr/bin/ksshaskpass
     autocrlf = input
+    pager = delta
     whitespace = trailing-space,\
                  -space-before-tab,\
                  -indent-with-non-tab,\
@@ -20,6 +21,11 @@
 [diff]
     tool = meld
     algorithm = histogram
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    line-numbers = true
+    navigate = true  # move between hunks with n and N
 [grep]
 	patternType = perl
 [color]
@@ -40,6 +46,9 @@
     ignore = update-index --assume-unchanged
     no-ignore = !git update-index --no-assume-unchanged $(git ls-files $(git rev-parse --show-toplevel))
     log-number = !git log --oneline --color=always --decorate=full HEAD | nl -v 0 | less -R
+    dlog = -c diff.external=difft log --ext-diff
+    dshow = -c diff.external=difft show --ext-diff
+    ddiff = -c diff.external=difft diff
 [pull]
 	ff = only
 [init]
