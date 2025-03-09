@@ -50,11 +50,11 @@
 #"xterm"
 #  control + b:2
 
-"konsole"
-  control + alt + t
+# "konsole"
+#   control + alt + t
 
-"dolphin"
-  control + alt + f
+# "dolphin"
+#   control + alt + f
 
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
