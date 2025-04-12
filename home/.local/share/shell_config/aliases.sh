@@ -142,3 +142,15 @@ function trim_whitespace() {(
 
     awk '{$1=$1; print}' < /dev/stdin
 )}
+
+function aider() {(
+    set -euo pipefail
+
+    docker run \
+        -it \
+        --user "$(id -u)":"$(id -g)" \
+        --volume "$(pwd)":/app \
+        paulgauthier/aider-full \
+        --api-key gemini="${GEMINI_API_KEY}" \
+        "${@}"
+)}
