@@ -111,3 +111,8 @@ fi
 
 # Rust
 export RUST_BACKTRACE=1
+
+# CUDA
+export CUDA_PATH=/opt/cuda
+export PATH='/opt/cuda/bin':'/opt/cuda/nsight_compute':'/opt/cuda/nsight_systems/bin':${PATH}
+export NVCC_CCBIN='/usr/bin/g++-14'
