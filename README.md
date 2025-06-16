@@ -19,6 +19,7 @@ pacman -S \
     pax-utils \
     powerline-fonts \
     ripgrep \
+    sad \
     thefuck \
     tmux \
     ttf-cascadia-code \
