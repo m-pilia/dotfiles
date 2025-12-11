@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+
+import sys
+
+r"""
+IE   bit 0   Invalid Operation Flag
+DE   bit 1   Denormal Flag
+ZE   bit 2   Divide By Zero Flag
+OE   bit 3   Overflow Flag
+UE   bit 4   Underflow Flag
+PE   bit 5   Precision Flag
+DAZ  bit 6   Denormals Are Zero
+IM   bit 7   Invalid Operation Mask
+DM   bit 8   Denormal Mask
+ZM   bit 9   Divide By Zero Mask
+OM   bit 10  Overflow Mask
+UM   bit 11  Underflow Mask
+PM   bit 12  Precision Mask
+R-   bit 13  Round Negative
+R+   bit 14  Round Positive
+FZ   bit 15  Flush To Zero
+
+RN  bits 13 and 14 are 0 Round To Nearest
+RZ  bits 13 and 14       Round To Zero
+"""
+
+BIT_NAMES = [
+    "Invalid Operation Flag",
+    "Denormal Flag",
+    "Divide By Zero Flag",
+    "Overflow Flag",
+    "Underflow Flag",
+    "Precision Flag",
+    "Denormals Are Zero",
+    "Invalid Operation Mask",
+    "Denormal Mask",
+    "Divide By Zero Mask",
+    "Overflow Mask",
+    "Underflow Mask",
+    "Precision Mask",
+    "Round Negative",
+    "Round Positive",
+    "Flush To Zero",
+]
+
+
+def main(argv):
+    width = max(len(s) for s in BIT_NAMES)
+    mxcsr = bin(int(argv[0], base=16))[2:][::-1]
+    mxcsr += "0" * (len(BIT_NAMES) - len(mxcsr))
+    for i, name in enumerate(BIT_NAMES):
+        print(f"{name:>{width}}: {mxcsr[i]}")
+    print(f"{'Round To Nearest':>{width}}: {1 if mxcsr[13] == '0' and mxcsr[14] == '0' else 0}")
+    print(f"{'Round To Zero':>{width}}: {1 if mxcsr[13] == '1' and mxcsr[14] == '1' else 0}")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
+
