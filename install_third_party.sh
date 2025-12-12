@@ -10,6 +10,7 @@ rg_url="https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-1
 difft_url="https://github.com/Wilfred/difftastic/releases/download/0.62.0/difft-x86_64"
 delta_url="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-x86_64"
 sad_url="https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64"
+starship_url="https://github.com/starship/starship/releases/download/v1.24.0/starship-i686"
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 third_party="$dir/third_party"
@@ -67,6 +68,10 @@ if [ "$(bash "${dir}"/home/.local/bin/get_arch)" == Windows ] ; then
     unzip x86_64-*.zip
     mv sad.exe "$bin_dir/".
 
+    curl -LJO "${starship_url}-pc-windows-msvc.zip "
+    unzip x86_64-*.zip
+    mv starship.exe "$bin_dir/".
+
     exit 0
 fi
 
@@ -117,3 +122,9 @@ cd "$tmp_dir"
 curl -LJO "${sad_url}-unknown-linux-gnu.zip"
 unzip x86_64-*.zip
 mv sad "$bin_dir/".
+
+# starship
+cd "$tmp_dir"
+curl -LJO "${starship_url}-unknown-linux-musl.tar.gz"
+tar -xf starship-*.tar.gz
+mv starship "$bin_dir/starship"

@@ -20,6 +20,7 @@ pacman -S \
     powerline-fonts \
     ripgrep \
     sad \
+    starship \
     thefuck \
     tmux \
     ttf-cascadia-code \

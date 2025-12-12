@@ -88,12 +88,10 @@ if     [[ ! -o login ]] \
     || [[ -n "${TMUX_DETECTED}" ]] \
     ; then
 
-    source "${SHELL_CONFIG_MODULES}"/spaceship-prompt/spaceship.zsh
-    source "${SHELL_CONFIG_MODULES}"/spaceship-vi-mode/spaceship-vi-mode.plugin.zsh
+    eval "$(starship init zsh)"
     source "${SHELL_CONFIG_MODULES}"/zsh-autosuggestions/zsh-autosuggestions.zsh
     source "${SHELL_CONFIG_MODULES}"/alias-tips/alias-tips.plugin.zsh
 
-    source ~/.local/share/shell_config/spaceship_prompt_settings.zsh
     source ~/.local/share/shell_config/fzf_config.zsh
 
     # zsh-syntax-highlighting (must be the last plugin sourced)
