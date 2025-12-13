@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-fzf_url="https://github.com/junegunn/fzf/releases/download/0.33.0/fzf-0.33.0"
+fzf_url="https://github.com/junegunn/fzf/releases/download/v0.67.0/fzf-0.67.0"
 fd_url="https://github.com/sharkdp/fd/releases/download/v8.4.0/fd-v8.4.0-x86_64"
 rg_url="https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64"
 difft_url="https://github.com/Wilfred/difftastic/releases/download/0.62.0/difft-x86_64"

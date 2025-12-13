@@ -25,6 +25,9 @@ if [[ -n "${TMUX}" ]]; then
     export TMUX_DETECTED=1
 fi
 
+# Key bindings
+source ~/.local/share/shell_config/zsh_keybindings.zsh
+
 # Prompt format (fallback)
 export PROMPT="[%n@%M %~] %% "
 
@@ -106,6 +109,3 @@ if     [[ ! -o login ]] \
         precmd_functions+=(_keep_current_path)
     fi
 fi
-
-# Key bindings
-source ~/.local/share/shell_config/zsh_keybindings.zsh
