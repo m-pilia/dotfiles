@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Read the SSH passphrase from the Windows Credential Manager.
+#
+# Using the following setup (see https://stackoverflow.com/a/60281918):
+# Install-Module Microsoft.PowerShell.SecretManagement
+# Install-Module SecretManagement.JustinGrote.CredMan  # Windows Credential Manager backend
+# Register-SecretVault SecretManagement.JustinGrote.CredMan
+#
+# Example set/get:
+# Set-Secret -Name TestSecret -Secret "My Secret Value"
+# Get-Secret -Name TestSecret -AsPlainText
+#
+# Add the ssh key with:
+# DISPLAY=1 SSH_ASKPASS=~/.local/bin/ssh-askpass-wsl2 ssh-add ~/.ssh/mykey </dev/null
+
+key_path=$(awk -F' ' '{print $NF}' <<< "${1}" | awk -F':' '{print $1}')
+secret_name=$(basename "${key_path}_ssh_key")
+powershell.exe -Command "Get-Secret -Name ${secret_name} -AsPlainText"
