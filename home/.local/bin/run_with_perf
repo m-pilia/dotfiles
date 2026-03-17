@@ -13,6 +13,9 @@
 
 set -eu
 
+sudo mount -t debugfs none /sys/kernel/debug || true
+sudo mount -t debugfs none /sys/kernel/debug/tracing || true
+
 # Store current settings
 KPTR_RESTRICT=$(sudo sysctl kernel.kptr_restrict | cut -d= -f2 | sed 's, ,,')
 PARANOID=$(sudo sysctl kernel.perf_event_paranoid | cut -d= -f2 | sed 's, ,,')
