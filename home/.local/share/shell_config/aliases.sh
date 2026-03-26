@@ -24,6 +24,9 @@ alias drop_last_command="sed -i '$ d' \"\${HISTFILE}\" && sed -i '$ d' \"\${HIST
 if [[ -n "${WSL_DETECTED}" ]]; then
     alias wslshutdown='history -a && cmd.exe /C wsl --shutdown'
     alias wslterminate='history -a && cmd.exe /C wsl --terminate "${WSL_DISTRO_NAME}"'
+
+    alias wslcopy='clip.exe'
+    alias wslpaste='powershell.exe -command "Get-Clipboard"'
 fi
 
 function xdocker() {
@@ -141,6 +144,70 @@ function trim_whitespace() {(
     set -euo pipefail
 
     awk '{$1=$1; print}' < /dev/stdin
+)}
+
+function wait_for_network() {(
+    while ! nc -zw1 8.8.8.8 443 &>/dev/null ; do
+        sleep 2
+    done
+)}
+
+function read_passwd() {
+    if [ -z "${PASSWD:-}" ]; then
+        PASSWD=$(keyring get "${PASSWD_FOLDER}" "${PASSWD_USER}")
+        export PASSWD
+    fi
+    if [ -z "${PASSWD:-}" ]; then
+        read -rs "PASSWD?[zshenv] password for $USER: "
+        echo
+        export PASSWD
+    fi
+}
+
+function script_sudo() {(
+    set -euo pipefail
+
+    read_passwd
+    echo "$PASSWD" | sudo --prompt '' --stdin "${@}"
+)}
+
+function explorer() {(
+    set -euo pipefail
+    explorer.exe "$(wslpath -w "$1")"
+)}
+
+
+function recheck_chain() {(
+    set -euo pipefail
+
+    chain_end=${1:-HEAD}
+    commit=$(git rev-parse "${chain_end}")
+
+    while true; do
+        commit_status=$(
+            ssh -p "${GERRIT_PORT}" "${GERRIT_HOST}" \
+                gerrit query commit:"${commit}" status:merged \
+                | awk '/^rowCount:/ {print $2}'
+        )
+
+        if [[ "${commit_status}" == "1" ]]; then
+            break
+        fi
+
+        verified_status=$(
+            ssh -p "${GERRIT_PORT}" "${GERRIT_HOST}" \
+                gerrit query commit:"${commit}" label:Verified=+1 \
+                | awk '/^rowCount:/ {print $2}'
+        )
+
+        if [[ "$verified_status" == "0" ]]; then
+            echo "Checking ${commit}"
+            ssh -p "${GERRIT_PORT}" "${GERRIT_HOST}" \
+                gerrit review "${commit}" -m "${GERRIT_CHECK_COMMAND}"
+        fi
+
+        commit=$(git rev-parse "${commit}~")
+    done
 )}
 
 function aider() {(
