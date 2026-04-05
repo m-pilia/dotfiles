@@ -72,8 +72,8 @@ source ~/.local/share/shell_config/variables.sh
 source ~/.local/share/shell_config/aliases.sh
 
 # Autojump
-if [ -f /etc/profile.d/autojump.zsh ]; then
-    source /etc/profile.d/autojump.zsh
+if [ -f /etc/profile.d/autojump.sh ]; then
+    source /etc/profile.d/autojump.sh
 else
     export PATH=$PATH:"${SHELL_CONFIG_ROOT}"/third_party/_share/autojump/bin
     source "${SHELL_CONFIG_ROOT}"/third_party/_share/autojump/share/autojump/autojump.zsh
