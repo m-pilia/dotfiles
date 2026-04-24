@@ -152,9 +152,17 @@ function wait_for_network() {(
     done
 )}
 
+function get_windows_secret() {
+    powershell.exe -Command "Get-Secret -Name ${1} -AsPlainText"
+}
+
+function get_python_secret() {
+    keyring get "$2" "$1"
+}
+
 function read_passwd() {
     if [ -z "${PASSWD:-}" ]; then
-        PASSWD=$(keyring get "${PASSWD_FOLDER}" "${PASSWD_USER}")
+        PASSWD=$(${PASSWD_GETTER} "${PASSWD_USER}" "${PASSWD_FOLDER}")
         export PASSWD
     fi
     if [ -z "${PASSWD:-}" ]; then
