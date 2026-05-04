@@ -74,18 +74,25 @@ SSH_KEYS_TO_ADD+=(~/.ssh/github)
 export SSH_KEYS_TO_ADD
 
 # start ssh-agent
-if [[ ! -o login ]] && [[ -z "${SSH_SESSION_DETECTED:-}" ]] && command -v ssh-agent > /dev/null; then
-	if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
-		ssh-agent > ~/.ssh-agent-thing
-		eval "$(<~/.ssh-agent-thing)" &> /dev/null
-		for key in $SSH_KEYS_TO_ADD; do
-			ssh-add "${key}" < /dev/null &> /dev/null
-		done
-	fi
-	if [[ "$SSH_AGENT_PID" == "" ]]; then
-		eval "$(<~/.ssh-agent-thing)" &> /dev/null
-	fi
+if [[ ! -o login || -n "${WSL_DETECTED}" ]] \
+        && [[ -z "${SSH_SESSION_DETECTED:-}" ]] \
+        && command -v ssh-agent > /dev/null; then
+    if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
+        ssh-agent > ~/.ssh_agent_state
+    fi
+    if [[ "$SSH_AGENT_PID" == "" ]]; then
+        eval "$(<~/.ssh_agent_state)" &> /dev/null
+    fi
+    added_ssh_keys=$(ssh-add -l)
+    for key in $SSH_KEYS_TO_ADD; do
+        if [[ -f "${key}" ]] && ! grep -q "$(ssh-keygen -lf "${key}" | awk '{print $2}')" \
+                <<<"${added_ssh_keys}" 2>/dev/null; then
+            ssh-add "${key}" < /dev/null
+        fi
+    done
+    unset added_ssh_keys
 fi
+
 
 # matlab
 export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
