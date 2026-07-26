@@ -1,0 +1,40 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "lsp": true,
+    "compaction": {
+        "auto": true,
+        "prune": true
+    },
+    "instructions": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        ".github/copilot-instructions.md"
+    ],
+    "permission": {
+        "lsp": "allow",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": "allow",
+        "skill": "allow",
+        "question": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "external_directory": "ask",
+        "doom_loop": "ask",
+        "edit": "allow",
+        "bash": {
+            "git push *": "ask",
+            "git commit *": "ask",
+            "rm *": "ask",
+            "mv *": "ask",
+            "chmod *": "ask",
+            "*--force*": "ask",
+            "*--hard*": "ask",
+            "dd *": "deny",
+            "mkfs*": "deny",
+            "shutdown*": "deny",
+            "poweroff*": "deny"
+        }
+    }
+}

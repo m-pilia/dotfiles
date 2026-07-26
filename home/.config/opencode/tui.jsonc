@@ -1,0 +1,8 @@
+{
+    "$schema": "https://opencode.ai/tui.json",
+    "keybinds": {
+        "input_buffer_home": "home",
+        "input_buffer_end": "end",
+        "messages_copy": "ctrl+shift+c"
+    }
+}

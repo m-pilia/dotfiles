@@ -119,6 +119,9 @@ fi
 # Rust
 export RUST_BACKTRACE=1
 
+# OpenCode
+export OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT=1
+
 # CUDA
 export CUDA_PATH=/opt/cuda
 export PATH='/opt/cuda/bin':'/opt/cuda/nsight_compute':'/opt/cuda/nsight_systems/bin':${PATH}
