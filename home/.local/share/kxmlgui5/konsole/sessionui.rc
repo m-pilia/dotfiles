@@ -87,5 +87,6 @@
  <ActionProperties>
   <Action name="open-browser" shortcut="Shift+F4"/>
   <Action name="sigkill-signal" shortcut="Ctrl+Alt+Shift+C"/>
+  <Action name="split-view-top-bottom" shortcut="Alt+Shift+E"/>
  </ActionProperties>
 </gui>

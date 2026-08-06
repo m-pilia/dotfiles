@@ -70,12 +70,10 @@
   <Action name="split-view-top-bottom"/>
  </ToolBar>
  <ActionProperties>
-  <Action name="clone-tab" shortcut=""/>
   <Action name="focus-view-above" shortcut="Alt+Up"/>
   <Action name="focus-view-below" shortcut="Alt+Down"/>
   <Action name="focus-view-left" shortcut="Alt+Left"/>
   <Action name="focus-view-right" shortcut="Alt+Right"/>
-  <Action name="help_contents" shortcut=""/>
   <Action name="move-tab-to-left" shortcut="Ctrl+Shift+Left"/>
   <Action name="move-tab-to-right" shortcut="Ctrl+Shift+Right"/>
   <Action name="next-container" shortcut=""/>
