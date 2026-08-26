@@ -28,7 +28,7 @@ find . \
 # Symlink files
 find . \
 	-mindepth 1 \
-	-type f \
+    \( -type f -o -type l \) \
 	-printf "ln -s$force \"$dir/home/%P\" \"$HOME/%P\"\n" \
 	-exec bash -c "[ $dry_run ] || ln -s$force \"$dir/home/{}\" \"$HOME/{}\"" \;
 
