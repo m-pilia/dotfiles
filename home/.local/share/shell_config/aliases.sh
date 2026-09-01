@@ -223,9 +223,10 @@ function aider() {(
 
     docker run \
         -it \
+        --rm \
         --user "$(id -u)":"$(id -g)" \
         --volume "$(pwd)":/app \
         paulgauthier/aider-full \
-        --api-key gemini="${GEMINI_API_KEY}" \
+        --no-gitignore \
         "${@}"
 )}
