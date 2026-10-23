@@ -1,40 +1,47 @@
 {
-    "$schema": "https://opencode.ai/config.json",
-    "lsp": true,
-    "compaction": {
-        "auto": true,
-        "prune": true
-    },
-    "instructions": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        ".github/copilot-instructions.md"
-    ],
-    "permission": {
-        "lsp": "allow",
-        "read": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "task": "allow",
-        "skill": "allow",
-        "question": "allow",
-        "webfetch": "allow",
-        "websearch": "allow",
-        "external_directory": "ask",
-        "doom_loop": "ask",
-        "edit": "allow",
-        "bash": {
-            "git push *": "ask",
-            "git commit *": "ask",
-            "rm *": "ask",
-            "mv *": "ask",
-            "chmod *": "ask",
-            "*--force*": "ask",
-            "*--hard*": "ask",
-            "dd *": "deny",
-            "mkfs*": "deny",
-            "shutdown*": "deny",
-            "poweroff*": "deny"
-        }
+  "$schema": "https://opencode.ai/config.json",
+
+  "lsp": true,
+
+  "compaction": {
+    "auto": true,
+    "keep": {
+      "tokens": 15000
     }
+  },
+
+  "instructions": [
+    "CLAUDE.md",
+    "AGENTS.md",
+    ".github/copilot-instructions.md"
+  ],
+
+  "permissions": [
+    { "action": "lsp", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": "*", "effect": "allow" },
+    { "action": "glob", "resource": "*", "effect": "allow" },
+    { "action": "grep", "resource": "*", "effect": "allow" },
+    { "action": "subagent", "resource": "*", "effect": "allow" },
+    { "action": "skill", "resource": "*", "effect": "allow" },
+    { "action": "question", "resource": "*", "effect": "allow" },
+    { "action": "webfetch", "resource": "*", "effect": "allow" },
+    { "action": "websearch", "resource": "*", "effect": "allow" },
+
+    { "action": "external_directory", "resource": "*", "effect": "ask" },
+
+    { "action": "edit", "resource": "*", "effect": "allow" },
+
+    { "action": "shell", "resource": "*--force*", "effect": "ask" },
+    { "action": "shell", "resource": "*--hard*", "effect": "ask" },
+    { "action": "shell", "resource": "git push *", "effect": "ask" },
+    { "action": "shell", "resource": "git commit *", "effect": "ask" },
+    { "action": "shell", "resource": "rm *", "effect": "ask" },
+    { "action": "shell", "resource": "mv *", "effect": "ask" },
+    { "action": "shell", "resource": "chmod *", "effect": "ask" },
+
+    { "action": "shell", "resource": "dd *", "effect": "deny" },
+    { "action": "shell", "resource": "mkfs*", "effect": "deny" },
+    { "action": "shell", "resource": "shutdown*", "effect": "deny" },
+    { "action": "shell", "resource": "poweroff*", "effect": "deny" }
+  ]
 }
