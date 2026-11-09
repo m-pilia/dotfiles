@@ -1,3 +1,4 @@
 third_party/*
 !third_party/modules
 home/.agents/skills/synced
+home/.agents/skills/.system
