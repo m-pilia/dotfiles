@@ -19,6 +19,8 @@ if [ "$(bash "${_SCRIPT_DIR}"/.local/bin/get_arch)" == Windows ] ; then
 else
     # shared config among different machines
     source ~/.local/share/shell_config/variables.sh
+    source ~/.local/share/shell_config/functions.sh
+    source ~/.local/share/shell_config/interactive.sh
     source ~/.local/share/shell_config/aliases.sh
 fi
 

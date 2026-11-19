@@ -22,23 +22,18 @@ export ERL_LIBS=/opt/proper/
 # cabal
 export PATH=$PATH:~/.cabal/bin
 
-# stack auto-completion
-if command -v stack > /dev/null; then
-	eval "$(stack --bash-completion-script stack)"
-fi
-
-# pipenv auto-completion
-if command -v pipenv > /dev/null; then
-	eval "$(pipenv --completion)"
-fi
-
 # history timestamp format
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # make flags
 export MAKEFLAGS="-j $((`nproc` + 0))"
-export CFLAGS="${CFLAGS} -fdiagnostics-color=always"
-export CXXFLAGS="${CXXFLAGS} -fdiagnostics-color=always"
+# Nested shells inherit the flags, avoid appending them again
+if [[ " ${CFLAGS:-} " != *" -fdiagnostics-color=always "* ]]; then
+	export CFLAGS="${CFLAGS:-} -fdiagnostics-color=always"
+fi
+if [[ " ${CXXFLAGS:-} " != *" -fdiagnostics-color=always "* ]]; then
+	export CXXFLAGS="${CXXFLAGS:-} -fdiagnostics-color=always"
+fi
 
 # ssh helper
 if command -v ksshaskpass > /dev/null; then
@@ -62,27 +57,6 @@ export PATH=~/.npm-global/bin:$PATH
 SSH_KEYS_TO_ADD+=(~/.ssh/github)
 export SSH_KEYS_TO_ADD
 
-# start ssh-agent
-if [[ ! -o login || -n "${WSL_DETECTED}" ]] \
-        && [[ -z "${SSH_SESSION_DETECTED:-}" ]] \
-        && command -v ssh-agent > /dev/null; then
-    if ! pgrep -u "$USER" ssh-agent &> /dev/null; then
-        ssh-agent > ~/.ssh_agent_state
-    fi
-    if [[ "$SSH_AGENT_PID" == "" ]]; then
-        eval "$(<~/.ssh_agent_state)" &> /dev/null
-    fi
-    added_ssh_keys=$(ssh-add -l)
-    for key in $SSH_KEYS_TO_ADD; do
-        if [[ -f "${key}" ]] && ! grep -q "$(ssh-keygen -lf "${key}" | awk '{print $2}')" \
-                <<<"${added_ssh_keys}" 2>/dev/null; then
-            ssh-add "${key}" < /dev/null
-        fi
-    done
-    unset added_ssh_keys
-fi
-
-
 # matlab
 export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
 
@@ -94,16 +68,6 @@ fi
 
 # Julia Pkg server
 export JULIA_PKG_SERVER=pkg.julialang.org
-
-# TERM for tmux
-if [[ -n "${TMUX_DETECTED}" ]]; then
-    export TERM=screen-256color
-fi
-
-# TTY for gpg on WSL
-if [[ -n "${WSL_DETECTED}" ]]; then
-    export GPG_TTY=$(tty)
-fi
 
 # Rust
 export RUST_BACKTRACE=1

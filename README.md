@@ -38,6 +38,9 @@ yay -S \
 * This configuration is designed for Arch Linux, therefore eventual paths
   contained in it are written according to how software components are packaged
   on Arch.
+* Each `zsh` startup file (`.zshenv`, `.zprofile`, `.zshrc`, `.zlogin`,
+  `.zlogout`) sources, at its end, an untracked `~/.<name>.local` counterpart
+  (e.g. `~/.zshenv.local`) if present, for machine-specific configuration.
 * The `install.sh` is an helper script that creates symlinks to the
   configuration files in the right places. It is a DIY and less sophisticated
   version of dotfile management tools like

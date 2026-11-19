@@ -1,29 +1,4 @@
-# Shell config root folder
-export SHELL_CONFIG_ROOT=$(dirname "$(dirname "$(readlink -f ~/.zshrc)")")
-
 local SHELL_CONFIG_MODULES="${SHELL_CONFIG_ROOT}"/third_party/modules
-
-# Detect SSH session
-export SSH_SESSION_DETECTED=
-if [[ -n "${SSH_CLIENT:-}" ]] || [[ -n "${SSH_TTY:-}" ]]; then
-    export SSH_SESSION_DETECTED=1
-fi
-
-# Detect Windows Subsystem for Linux
-export WSL_DETECTED=
-if [[ -n "${IS_WSL:-}" ]] || [[ -n "${WSL_DISTRO_NAME:-}" ]]; then
-    if uname -a | grep 'microsoft-standard' > /dev/null ; then
-        export WSL_DETECTED=2
-    else
-        export WSL_DETECTED=1
-    fi
-fi
-
-# Detect tmux
-export TMUX_DETECTED=
-if [[ -n "${TMUX}" ]]; then
-    export TMUX_DETECTED=1
-fi
 
 # Key bindings
 source ~/.local/share/shell_config/zsh_keybindings.zsh
@@ -55,20 +30,14 @@ fpath=(
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 
+source ~/.local/share/shell_config/interactive.sh
+
 # Show completion menu when the number of options is at least 2
 zstyle ':completion:*' menu select=2
 
 # Enable command autocorrection
 setopt correct
 
-# Drop-in binary path
-if [ -d "${SHELL_CONFIG_ROOT}/third_party/_bin" ]; then
-    export PATH=${PATH}:${SHELL_CONFIG_ROOT}/third_party/_bin
-fi
-
-# Shared config among different machines
-
-source ~/.local/share/shell_config/variables.sh
 source ~/.local/share/shell_config/aliases.sh
 
 # Autojump
@@ -100,7 +69,7 @@ if     [[ ! -o login ]] \
     # zsh-syntax-highlighting (must be the last plugin sourced)
     source "${SHELL_CONFIG_MODULES}"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-    if [[ -n "${WSL_DETECTED}" ]]; then
+    if [[ -n "${WSL_DETECTED}" ]] && [[ -z "${SSH_SESSION_DETECTED}" ]]; then
         # Notify Windows Terminal of the current path
         # https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory
         _keep_current_path() {
@@ -108,4 +77,8 @@ if     [[ ! -o login ]] \
         }
         precmd_functions+=(_keep_current_path)
     fi
+fi
+
+if [[ -r ~/.zshrc.local ]]; then
+    source ~/.zshrc.local
 fi
