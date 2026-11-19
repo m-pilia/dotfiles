@@ -153,7 +153,7 @@ function wait_for_network() {(
 )}
 
 function get_windows_secret() {
-    powershell.exe -Command "Get-Secret -Name ${1} -AsPlainText"
+    powershell.exe -Command "Get-Secret -Name ${1} -AsPlainText" < /dev/null
 }
 
 function get_python_secret() {
