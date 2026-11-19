@@ -57,6 +57,12 @@ export PATH=~/.npm-global/bin:$PATH
 SSH_KEYS_TO_ADD+=(~/.ssh/github)
 export SSH_KEYS_TO_ADD
 
+# Keep a forwarded agent (ssh -A), otherwise use the local one
+SSH_AGENT_SOCKET=~/.ssh/agent.sock
+if [[ ! -S "${SSH_AUTH_SOCK:-}" ]]; then
+    export SSH_AUTH_SOCK="${SSH_AGENT_SOCKET}"
+fi
+
 # matlab
 export PATH=$PATH:~/Cryptbox/Configs/matlab-config/bin
 

@@ -158,6 +158,29 @@ function append_windows_path() {
     done
 }
 
+# Only manages the local agent, so that local keys never end up in a forwarded one
+function ensure_ssh_agent() {
+    if [[ "${SSH_AUTH_SOCK:-}" != "${SSH_AGENT_SOCKET}" ]]; then
+        return 0
+    fi
+
+    local added_ssh_keys
+    added_ssh_keys=$(ssh-add -l 2> /dev/null)
+    if [[ $? -eq 2 ]]; then
+        # A killed agent leaves its socket behind, blocking a new one from binding it
+        rm -f "${SSH_AGENT_SOCKET}"
+        ssh-agent -a "${SSH_AGENT_SOCKET}" > /dev/null
+    fi
+
+    local key
+    for key in "${SSH_KEYS_TO_ADD[@]}"; do
+        if [[ -f "${key}" ]] && ! grep -qF -- "$(ssh-keygen -lf "${key}" | awk '{print $2}')" \
+                <<< "${added_ssh_keys}"; then
+            ssh-add "${key}" < /dev/null
+        fi
+    done
+}
+
 function get_windows_secret() {
     powershell.exe -Command "Get-Secret -Name ${1} -AsPlainText" < /dev/null | tr -d '\r'
 }
