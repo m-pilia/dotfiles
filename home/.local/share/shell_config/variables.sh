@@ -16,17 +16,6 @@ export PATH=~/.local/bin:$PATH
 # personal scripts
 export PATH=$PATH:~/Cryptbox/SW/bin/
 
-if [[ -x "${SSH_SESSION_DETECTED:-}" ]] && [ "$(bc -l <<< "$(get_dpi) > 200")" -eq 1 ]; then
-	# HiDPI support for QT applications (must be an integer)
-	#export QT_DEVICE_PIXEL_RATIO=2
-
-	# HiDPI support for GTK applications
-	export GDK_SCALE=2
-
-	# HiDPI support for Java 9+ applications
-	export _JAVA_OPTIONS="$_JAVA_OPTIONS -Dsun.java2d.uiScale=2"
-fi
-
 # Erlang library path
 export ERL_LIBS=/opt/proper/
 
