@@ -124,7 +124,6 @@ function wait_for_network() {(
 function _find_windows_dir() {(
     set -euo pipefail
 
-    local mount_point
     while read -r mount_point; do
         if [[ -e "${mount_point}/Windows/System32/cmd.exe" ]]; then
             echo "${mount_point}/Windows"
@@ -183,6 +182,27 @@ function ensure_ssh_agent() {
 
 function get_windows_secret() {
     powershell.exe -Command "Get-Secret -Name ${1} -AsPlainText" < /dev/null | tr -d '\r'
+}
+
+function set_windows_secret() {(
+    set -euo pipefail
+
+    if [[ -t 0 ]]; then
+        printf 'Secret for %s: ' "${1}" >&2
+    fi
+    IFS= read -rs secret || true
+    if [[ -t 0 ]]; then
+        echo >&2
+    fi
+
+    printf '%s' "${secret}" | base64 -w 0 | powershell.exe -Command "
+        \$secret = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String([Console]::In.ReadToEnd()))
+        Set-Secret -Name ${1} -Secret \$secret"
+)}
+
+function remove_windows_secret() {
+    powershell.exe -Command \
+        "Remove-Secret -Name ${1} -Vault (Get-SecretVault | Where-Object IsDefault).Name" < /dev/null
 }
 
 function get_python_secret() {
