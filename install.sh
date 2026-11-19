@@ -29,8 +29,8 @@ find . \
 find . \
 	-mindepth 1 \
     \( -type f -o -type l \) \
-	-printf "ln -s$force \"$dir/home/%P\" \"$HOME/%P\"\n" \
-	-exec bash -c "[ $dry_run ] || ln -s$force \"$dir/home/{}\" \"$HOME/{}\"" \;
+	-printf "ln -sT$force \"$dir/home/%P\" \"$HOME/%P\"\n" \
+	-exec bash -c "[ $dry_run ] || ln -sT$force \"$dir/home/{}\" \"$HOME/{}\"" \;
 
 # Fetch third party dependencies
 if [ $third_party ]; then
