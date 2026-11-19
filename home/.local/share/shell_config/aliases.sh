@@ -152,6 +152,44 @@ function wait_for_network() {(
     done
 )}
 
+# Since Vista, Windows is always installed in <drive>:\Windows, only the drive varies
+function _find_windows_dir() {(
+    set -euo pipefail
+
+    local mount_point
+    while read -r mount_point; do
+        if [[ -e "${mount_point}/Windows/System32/cmd.exe" ]]; then
+            echo "${mount_point}/Windows"
+            return 0
+        fi
+    done < <(awk '$3 == "drvfs" || ($3 == "9p" && $4 ~ /aname=drvfs/) {print $2}' /proc/mounts)
+    return 1
+)}
+
+# WSL already sets the Windows path via appendWindowsPath, but sessions not started
+# through WSL interop lack it
+function append_windows_path() {
+    local windows_dir
+    windows_dir=$(_find_windows_dir) || return 1
+
+    # Windows paths are case insensitive and may have trailing slashes
+    local normalized_path
+    normalized_path=$(tr ':' '\n' <<< "${PATH}" | sed 's,/*$,,')
+
+    local dir
+    for dir in \
+            "${windows_dir}" \
+            "${windows_dir}/System32" \
+            "${windows_dir}/System32/Wbem" \
+            "${windows_dir}/System32/WindowsPowerShell/v1.0" \
+            "${windows_dir}/System32/OpenSSH" \
+            "${windows_dir%/*}/Program Files/PowerShell/7"; do
+        if [[ -d "${dir}" ]] && ! grep -qixF -- "${dir}" <<< "${normalized_path}"; then
+            export PATH="${PATH}:${dir}"
+        fi
+    done
+}
+
 function get_windows_secret() {
     powershell.exe -Command "Get-Secret -Name ${1} -AsPlainText" < /dev/null
 }
