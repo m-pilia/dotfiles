@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 # shellcheck disable=2155,2006
 
-# editor
-if command -v nvim &> /dev/null ; then
-    export EDITOR=nvim
-else
-    export EDITOR=vim
-fi
-
-export VISUAL=$EDITOR
-
 # local binaries
 export PATH=~/.local/bin:$PATH
 
@@ -35,11 +26,6 @@ if [[ " ${CXXFLAGS:-} " != *" -fdiagnostics-color=always "* ]]; then
 	export CXXFLAGS="${CXXFLAGS:-} -fdiagnostics-color=always"
 fi
 
-# ssh helper
-if command -v ksshaskpass > /dev/null; then
-	export SSH_ASKPASS=/usr/bin/ksshaskpass
-fi
-
 # QQC2 style
 # export QT_QUICK_CONTROLS_STYLE=Desktop
 
@@ -61,6 +47,11 @@ export SSH_KEYS_TO_ADD
 SSH_AGENT_SOCKET=~/.ssh/agent.sock
 if [[ ! -S "${SSH_AUTH_SOCK:-}" ]]; then
     export SSH_AUTH_SOCK="${SSH_AGENT_SOCKET}"
+fi
+
+# ssh helper
+if command -v ksshaskpass > /dev/null; then
+    export SSH_ASKPASS=/usr/bin/ksshaskpass
 fi
 
 # matlab

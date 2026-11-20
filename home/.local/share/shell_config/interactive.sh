@@ -20,3 +20,12 @@ fi
 if [[ -n "${WSL_DETECTED}" ]]; then
     export GPG_TTY=$(tty)
 fi
+
+# editor
+if command -v nvim &> /dev/null ; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
+
+export VISUAL=$EDITOR
